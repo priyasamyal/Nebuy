@@ -1,0 +1,295 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="orderStatus" mode="md" color="dark">
+      <ion-segment-button value="active">
+        <ion-icon name="ai-orders"></ion-icon>
+         <!--{{ 'Orders' | translate }}-->
+      </ion-segment-button>
+
+      <ion-segment-button value="finished">
+         <!--{{ 'Messages' | translate }}-->
+        <ion-icon name="ai-message"></ion-icon>
+        <ion-badge *ngIf="globals.myOrdersNotifications > 0" color="danger" item-right>{{globals.myOrdersNotifications}}</ion-badge>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div [ngSwitch]="orderStatus">
+    <div *ngSwitchCase="'active'">
+      <!-- Confirmation -->
+      <ng-container *ngFor="let item of userOrders$ | async">
+        <ion-card class="delivery-card" [ngClass]="item?.status"
+                  *ngIf="item?.status === 'Confirmation' ||
+                item?.status === 'active' ||
+                item?.status === 'in_process' ||
+                item?.status === 'in_active'">
+          <ng-container>
+            <ion-card-header text-center *ngIf="item?.status === 'Confirmation'">{{ "Confirm delivery" | translate}}</ion-card-header>
+            <ion-card-header text-center *ngIf="item?.status === 'active'">{{ "Active" | translate}}</ion-card-header>
+            <ion-card-header text-center *ngIf="item?.status === 'in_process'">{{ 'Being delivered' | translate }}</ion-card-header>
+            <ion-card-header text-center *ngIf="item?.status === 'in_active'">{{ 'Time Expired' | translate }}</ion-card-header>
+            <ion-item no-lines class="shop-title">
+              <ion-avatar item-start="" *ngIf="item?.shop?.shop_photo">
+                <img src="{{ item?.shop?.shop_photo}}"/>
+              </ion-avatar>
+              <h2>{{ item?.shop?.shop_name}}</h2>
+            </ion-item>
+            <!-- Order details -->
+            <ion-grid class="order-details">
+              <ion-row *ngIf="item?.status === 'Confirmation'; else notConfirmation">
+                <ion-col>
+                  <p text-left>
+                    {{ 'Reward' | translate }}:
+                    <span class="text-dark text-bold">{{(item?.delivery_cost * 1) | currency:globals.currency:true}}</span>
+                  </p>
+                </ion-col>
+                <ion-col>
+                  <p text-right>
+                    {{ 'Cost' | translate }}:
+                    <span class="text-dark text-bold">{{(item?.actual_cost * 1) | currency:globals.currency:true }}</span>
+                  </p>
+                </ion-col>
+              </ion-row>
+
+              <ng-template #notConfirmation>
+                <ion-row>
+                  <ion-col>
+                    <p text-left>
+                      {{ 'Reward' | translate }}:
+                      <span class="text-dark text-bold">{{(item?.reward * 1) | currency:globals.currency:true}}</span>
+                    </p>
+                  </ion-col>
+                  <ion-col>
+                    <p text-right>
+                      {{ 'Budget' | translate }}:
+                      <span class="text-dark text-bold">{{ item?.cost | currency:globals.currency:true }}</span>
+                    </p>
+                  </ion-col>
+                </ion-row>
+              </ng-template>
+
+              <ng-container *ngIf="item?.status === 'Confirmation'">
+                <ion-row class="action-buttons more-than-two" justify-content-between="">
+                  <ion-col no-padding>
+                    <button ion-button="" class="shadow-button" icon-start="" (click)="viewDetails(item,'active')" round outline color="grey">
+                      <ion-icon name="ai-view" color="primary"></ion-icon>
+                      {{ 'View' | translate }}
+                    </button>
+                  </ion-col>
+                  <ion-col no-padding>
+                    <button ion-button="" class="shadow-button" icon-start=""  (click)="message(item)" round outline color="grey">
+                      <ion-icon name="ai-chat" color="primary"></ion-icon>
+                      {{ 'Chat' | translate }}
+                      <ion-badge color="danger" *ngIf="globals.chatNotifications[item.chat_id]" item-end>{{globals.chatNotifications[item.chat_id]}}</ion-badge>
+                    </button>
+                  </ion-col>
+                  <ion-col no-padding>
+                    <button ion-button="" class="shadow-button" icon-start="" (click)="Confirmation(item)" round outline color="grey">
+                      <ion-icon name="ai-confirm" color="primary"></ion-icon>
+                      {{ 'Confirmation' | translate }}
+                    </button>
+                  </ion-col>
+                </ion-row>
+              </ng-container>
+
+              <ng-container *ngIf="item?.status === 'active'">
+                <ion-row class="action-buttons more-than-two" justify-content-between="">
+                  <ion-col no-padding>
+                    <button ion-button="" class="shadow-button" icon-start="" (click)="DeleteOrder(item.$key, item.chat_id)" round outline color="grey">
+                      <ion-icon name="ai-delete" color="primary"></ion-icon>
+                      {{ 'Delete' | translate }}
+                    </button>
+                  </ion-col>
+                  <ion-col no-padding>
+                    <button ion-button="" class="shadow-button" icon-start=""  (click)="viewDetails(item,'active')" round outline color="grey">
+                      <ion-icon name="ai-view" color="primary"></ion-icon>
+                      {{ 'View' | translate }}
+                      <!--<ion-badge color="danger" *ngIf="globals.chatNotifications[item.chat_id]" item-end>{{globals.chatNotifications[item.chat_id]}}</ion-badge>-->
+                    </button>
+                  </ion-col>
+                  <ion-col no-padding>
+                    <button ion-button="" class="shadow-button" icon-start="" (click)="editOrder(item.uid)" round outline color="grey">
+                      <ion-icon name="ai-edit" color="primary"></ion-icon>
+                      {{ 'Edit' | translate }}
+                    </button>
+                  </ion-col>
+                </ion-row>
+              </ng-container>
+
+              <ng-container *ngIf="item?.status === 'in_process'">
+                <ion-row class="action-buttons more-than-two" justify-content-between="">
+                  <ion-col no-padding>
+                    <button ion-button="" class="shadow-button" icon-start="" (click)="viewDetails(item,'in_progress')" round outline color="grey">
+                      <ion-icon name="ai-view" color="primary"></ion-icon>
+                      {{ 'View' | translate }}
+                    </button>
+                  </ion-col>
+
+                  <ion-col no-padding>
+                    <button ion-button="" class="shadow-button" icon-start="" (click)="message(item)" round outline color="grey">
+                      <ion-icon name="ai-chat" color="primary"></ion-icon>
+                      {{ 'Chat' | translate }}
+                      <ion-badge color="danger" *ngIf="globals.chatNotifications[item.chat_id]" item-end>{{globals.chatNotifications[item.chat_id]}}</ion-badge>
+                    </button>
+                  </ion-col>
+
+                  <ion-col no-padding>
+                    <button ion-button="" class="shadow-button" icon-start="" (click)="chatProfile(item.seller_id)" round outline color="grey">
+                      <ion-icon name="ai-profile" color="primary"></ion-icon>
+                      {{ 'Courier' | translate }}
+                    </button>
+                  </ion-col>
+                </ion-row>
+              </ng-container>
+              <ng-container *ngIf="item?.status === 'in_active'">
+                <ion-row class="action-buttons more-than-two" justify-content-between="">
+                  <ion-col no-padding>
+                    <button ion-button="" class="shadow-button" icon-start="" (click)="viewDetails(item,'in_progress')" round outline color="grey">
+                      <ion-icon name="ai-view" color="primary"></ion-icon>
+                      {{ 'View' | translate }}
+                    </button>
+                  </ion-col>
+
+                  <ion-col no-padding>
+                    <button ion-button="" class="shadow-button" icon-start="" (click)="DeleteOrder(item.$key, item.chat_id)" round outline color="grey">
+                      <ion-icon name="ai-delete" color="primary"></ion-icon>
+                      {{ 'Delete' | translate }}
+                    </button>
+                  </ion-col>
+
+                  <ion-col no-padding>
+                    <button ion-button="" class="shadow-button" icon-start="" (click)="Activate(item)" round outline color="grey">
+                      <ion-icon name="ai-activate" color="primary"></ion-icon>
+                      {{ 'activate' | translate }}
+                    </button>
+                  </ion-col>
+
+                </ion-row>
+              </ng-container>
+
+            </ion-grid>
+          </ng-container>
+        </ion-card>
+      </ng-container>
+
+    <ion-card class="delivery-card delivered" *ngFor="let item of finishedOrders$ | async">
+      <ion-card-header text-center>{{ 'delivered' | translate }}</ion-card-header>
+      <ion-item no-lines class="shop-title">
+        <ion-avatar item-start="" *ngIf="item?.shop?.shop_photo">
+          <img src="{{ item?.shop?.shop_photo}}"/>
+        </ion-avatar>
+        <h2>{{ item?.shop?.shop_name}}</h2>
+      </ion-item>
+      <!-- Order details -->
+      <ion-grid class="order-details">
+        <ion-row>
+          <ion-col>
+            <p text-left>
+              {{ 'Reward' | translate }}:
+              <span class="text-dark text-bold">{{((item?.delivery_cost * 1)) | currency:globals.currency:true}}</span>
+            </p>
+          </ion-col>
+          <ion-col>
+            <p text-right>
+              {{ 'Budget' | translate }}:
+              <span class="text-dark text-bold">{{ item?.actual_cost | currency:globals.currency:true }}</span>
+            </p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="action-buttons more-than-two" justify-content-between="">
+          <ion-col no-padding>
+            <button ion-button="" class="shadow-button" icon-start="" (click)="deleteOrder(item.$key, item.chat_id)" round outline color="grey">
+              <ion-icon name="ai-delete" color="primary"></ion-icon>
+              {{ 'Delete' | translate }}
+            </button>
+          </ion-col>
+          <ion-col no-padding>
+            <!-- (click)="rate(item)" [disabled]="item.rated" -->
+            <button ion-button="" class="shadow-button" icon-start="" (click)="rateOrder(item)" [disabled]="item.rated"  round outline color="grey">
+              <ion-icon name="ai-rate" color="primary"></ion-icon>
+              {{ 'Rate' | translate }}
+            </button>
+          </ion-col>
+          <ion-col no-padding>
+            <button ion-button="" class="shadow-button" icon-start="" (click)="viewDetails(item,'delivered')" round outline color="grey">
+              <ion-icon name="ai-view" color="primary"></ion-icon>
+              {{ 'View' | translate }}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+
+
+    </div>
+
+
+    <div *ngSwitchCase="'finished'">
+      <ng-container *ngFor="let item of userOrders$  | async; let id = index">
+        <div class="relative chat-buttons" *ngIf="item.chat_id && !item.chat_deleted">
+          <button  class="shadow-button view-order" ion-button="" icon-only="" color="grey" outline (click)="viewDetails(item)">
+            <ion-icon name="ai-view-order"></ion-icon>
+          </button>
+          <button class="shadow-button view-user" ion-button="" color="grey" outline (click)="message(item)">
+            <!--{{userNames[id]}}-->
+            {{item.seller_name}}
+            <!--<ion-badge class="outline-badge">2</ion-badge>-->
+            <ion-badge class="outline-badge" *ngIf="globals.chatNotifications[item.chat_id]>0 ">{{globals.chatNotifications[item.chat_id]}}</ion-badge>
+          </button>
+        </div>
+      </ng-container>
+
+  </div>
+  </div>
+</ion-content>
+
+<!-- Activation popup -->
+<div id="my_dialog" class="custom-dialog" style="visibility:hidden" text-center="">
+  <div class="dialog">
+    <div class="dialog-content">
+      <h2>{{ 'Activate' | translate }}.</h2>
+      <form [formGroup]="orderForm">
+        <ion-grid>
+          <ion-row align-items-end="">
+            <ion-col>
+              <p no-padding no-margin text-center>{{ 'From' | translate }}:</p>
+              <!--(click)="startDate()" *ngIf="startDay == ''"-->
+              <ion-item no-lines text-center [formGroup]="orderForm" class="underlined-field order-date-time field-dark">
+                <ion-label no-padding no-margin>{{startDay}}<br>{{StartTime}}</ion-label>
+                <ion-datetime no-lines id="from" no-padding dayShortNames="Monday,Tuesday,Wednes,Thursd,Friday,Saturd Sunday"  min="{{current}}" max={{later}} pickerFormat="YYYY,MMM,DD,HH,mm" (ionChange)="hello1($event)" [(ngModel)]="one" cancelText="" formControlName="betweenTimeone" [pickerOptions]="{cssClass: 'custom-date-picker'}"></ion-datetime>
+              </ion-item>
+            </ion-col>
+
+            <ion-col text-center>
+              <ion-icon name="ai-time"></ion-icon>
+            </ion-col>
+
+            <ion-col>
+              <p no-padding no-margin text-center>{{ 'To' | translate }}:</p>
+              <!--(click)="endDate()" *ngIf="endDay == ''"-->
+              <ion-item no-lines text-center [formGroup]="orderForm" class="underlined-field order-date-time field-dark">
+                <ion-label no-padding no-margin> {{endDay}}<br>{{EndTime}}</ion-label>
+                <ion-datetime no-lines id="to" cancelText=""  no-padding dayShortNames="Monday,Tuesday, Wednes,Thursd,Friday,Saturd Sunday"  min={{startTime}} max={{endTime}} pickerFormat="YYYY,MMM,DD,HH,mm"  [(ngModel)]="two" (ionChange)="hello2($event)"   formControlName="betweenTimetwo" [pickerOptions]="{cssClass: 'custom-date-picker'}"></ion-datetime>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </div>
+    <ion-grid class="dialog-buttons" no-padding>
+      <ion-row nowrap>
+        <ion-col no-padding col-6>
+          <button no-padding ion-button clear icon-left color="primary" (click)="hideDialog()"> {{ 'Cancel' | translate }}</button>
+        </ion-col>
+        <ion-col no-padding col-6>
+          <button no-padding ion-button clear icon-right color="primary" (click)="activate()"> {{ 'Activate' | translate }}</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</div><!-- end confirm popup -->

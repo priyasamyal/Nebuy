@@ -1,0 +1,75 @@
+<!--<ion-header>-->
+
+  <!--<ion-navbar>-->
+    <!--<ion-title text-center> {{ 'Confirmation' | translate }}</ion-title>-->
+  <!--</ion-navbar>-->
+
+<!--</ion-header>-->
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="close()">
+        <ion-icon name="ion-custom-back"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div>
+    <h2>{{ message }}</h2>
+    <p>
+      <span>{{ 'Total cost of this order' | translate }}:</span>
+      <!--<span>{{ 'Product cost' | translate }}: {{payload.cost | currency:globals.currency:true}}</span>-->
+      <span>{{total | currency:globals.currency:true}}</span>
+    </p>
+
+    <p>
+      <span>{{ 'Product cost' | translate }}:</span>
+      <span>{{deliveryData.actual_cost | currency:globals.currency:true}}</span>
+    </p>
+
+    <p>
+      <span>{{ 'Delivery cost' | translate }}:</span>
+      <span>{{deliveryData.delivery_cost | currency:globals.currency:true}}</span>
+    </p>
+    <!--<p *ngIf="payload.deliveryData">-->
+      <!--<span>{{ 'Delivery reward' | translate }}:</span>-->
+      <!--<span>{{ 'Product cost' | translate }}: {{payload.deliveryData.reward | currency:globals.currency:true}}</span>-->
+    <!--</p>-->
+
+    <!--<p *ngIf="deliveryData.reward">-->
+      <!--<span>{{ 'Delivery reward' | translate }}: </span>-->
+      <!--<span>{{deliveryData.reward | currency:globals.currency:true}}</span>-->
+    <!--</p>-->
+
+    <!--<p>-->
+      <!--<span>{{ 'Total' | translate }}: </span>-->
+      <!--<span>{{total | currency:globals.currency:true}}</span>-->
+    <!--</p>-->
+
+  </div>
+  <!--<h4 text-center>{{ 'Total cost of this order' | translate }}: </h4>-->
+  <!--<h6>{{  'Product cost' | translate }}: {{payload.cost | currency:globals.currency:true}} </h6>-->
+  <!--<h6 *ngIf="payload.deliveryData">{{ 'Delivery reward' | translate }}: {{payload.deliveryData.reward | currency:globals.currency:true}}</h6>-->
+  <!--<h6 *ngIf="payload.reward">{{ 'Delivery reward' | translate }}: {{payload.reward | currency:globals.currency:true}}</h6>-->
+
+  <!--<h5 text-center>{{ 'Total' | translate }}: {{total | currency:globals.currency:true}}</h5>-->
+</ion-content>
+
+<ion-footer>
+  <ion-grid class="no-padding">
+    <ion-row>
+      <ion-col width-50>
+        <button color="primary" ion-button round block (click)="decline()">{{ 'Decline' | translate }}</button>
+      </ion-col>
+      <ion-col width-50>
+        <button color="primary" ion-button round block (click)="confirm()">{{ 'Confirm' | translate }}</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

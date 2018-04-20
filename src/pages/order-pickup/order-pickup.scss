@@ -1,0 +1,195 @@
+.md, .ios {
+  page-order-pickup {
+    .location-search {
+      .item-select {
+        max-width: 40px;
+        background: transparent;
+        padding: 0;
+        .item-inner, .input-wrapper {
+          padding: 0;
+          overflow: visible;
+          position: relative;
+        }
+         .select-text {
+           display: none;
+         }
+
+        .select {
+          overflow: visible;
+          position: relative;
+        }
+        .select-icon {
+          width: auto;
+          height: auto;
+        }
+        .select-icon-inner {
+          border: none;
+          top:0;
+          left:0;
+          margin: 0;
+          position: relative;
+          @include center();
+          &::before {
+            content: '\4e';
+            font-family: 'nebuy-app';
+            font-size: 24px;
+            color: map_get($colors, dark);
+          }
+        }
+      }
+      .button {
+        background: transparent;
+        color: map_get($colors, dark);
+      }
+    }
+    .location-search.searchbar {
+      input {
+        padding-left:8px;
+
+      }
+      .searchbar-search-icon {
+        background-image: none;
+      }
+    }
+
+    .item.underlined-field {
+      border-bottom: 2px solid map_get($colors, dark);
+      &::before, &::after {
+        background: map_get($colors, dark);
+        width: 2px;
+      }
+    }
+
+
+    //.img{
+    //  // background: -webkit-linear-gradient(#6cf, #09c);
+    //  background: #fafafa;
+    //  background-repeat: no-repeat;
+    //  background-attachment: fixed;
+    //  background-position: center;
+    //}
+    //.circle {
+    //  position: absolute;
+    //  bottom: 50px;
+    //  right: 50px;
+    //  width: 70px;
+    //  height: 70px;
+    //  background: white;
+    //  border-radius: 40px;
+    //}
+    //div.image:before {
+    //  content:url(http://placehold.it/200x150);
+    //}
+    //
+    //
+    //ion-card {
+    //  position: relative;
+    //  text-align: center;
+    //}
+    //
+    //.card-title {
+    //  position: absolute;
+    //  bottom:35px;
+    //  font-size: 18px;
+    //  width: 100%;
+    //  font-weight: bold;
+    //  color: #fff;
+    //}
+    //
+    //.card-subtitle {
+    //  font-size: 1.0em;
+    //  position: absolute;
+    //  bottom:15px;
+    //  width: 100%;
+    //  color: #fff;
+    //}
+    //
+
+    // .hide-on-keyboard-open {
+    //     display: none !important;
+    // }
+
+    // .display-on-keyboard-close {
+    //     display: block !important;
+    // }
+
+
+    //  @media screen and (min-width:330px){
+    //         .shop-list {
+    //         max-height: 250px;
+    //         overflow: scroll;
+    //     }
+    //     }
+
+    //     @media screen and (max-width:330px){
+    //         .shop-list {
+    //         max-height: 190px;
+    //         overflow: scroll;
+    //     }
+    //     }
+
+    .location-decoration {
+      position: relative;
+      left: -5px;
+      &::before, &::after {
+        font-family: $icon-font-family;
+        position: absolute;
+        left: -8px;
+      }
+      &::before {
+        content: '\79';
+        top: -14px;
+      }
+      &::after {
+        content: '\43';
+        bottom: -15px;
+      }
+      min-height: 20px;
+      margin-left: 16px;
+      border-left: 2px solid map_get($colors, dark);
+    }
+
+    .product-list {
+      max-height: 190px;
+      overflow: scroll;
+    }
+
+    .content.location-list-open {
+      .scroll-content {
+        overflow: hidden;
+        //margin-bottom: 0;
+      }
+    }
+
+
+
+    .shop-search-container {}
+
+    .place-item:before {
+      content:url(http://placehold.it/200x150);
+    }
+
+    .list-location {
+      width: 18px;
+      margin: 0 15px 0 5px;
+    }
+
+    .date-time-container {
+      width: calc(100% - 23px);
+      margin: 6% auto 2%;
+      border: 1px solid map_get($colors, light-grey);
+    }
+
+    @media screen and (min-width:330px){
+      .hourSize {
+        font-size: 20px;
+      }
+    }
+
+    @media screen and (max-width:330px){
+      .hourSize {
+        font-size: 16px;
+      }
+    }
+  }
+}

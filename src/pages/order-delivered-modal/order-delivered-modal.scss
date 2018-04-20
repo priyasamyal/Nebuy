@@ -1,0 +1,10 @@
+.md, .ios {
+  page-order-delivered-modal {
+
+    .footer {
+      .button {
+        color: map_get($colors, dark);
+      }
+    }
+  }
+}

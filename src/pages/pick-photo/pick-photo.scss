@@ -1,0 +1,11 @@
+page-pick-photo {
+  .content {
+    background: map_get($colors, white);
+  }
+  ion-footer {
+    .button {
+      font-size: 2.2rem;
+      height: 4.2rem;
+    }
+  }
+}

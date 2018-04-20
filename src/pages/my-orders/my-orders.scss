@@ -1,0 +1,29 @@
+.md, .ios {
+  page-my-orders {
+    .header {
+      .toolbar {
+        padding: 0;
+      }
+    }
+    .segment {
+      .segment-button {
+        max-width: none;
+        height: 100%;
+        line-height: normal;
+        &.segment-activated {
+          .icon[name="ai-message"]::before {
+            content: '\63';
+          }
+          .icon[name="ai-orders"]::before {
+            content: '\45';
+          }
+        }
+        &:not(.segment-activated) {
+          border: none;
+        }
+      }
+    }
+
+
+  }
+}

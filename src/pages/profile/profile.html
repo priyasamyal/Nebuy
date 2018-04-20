@@ -1,0 +1,150 @@
+<ion-content>
+   <div text-center>
+    <ion-row text-center style="padding-top:10px;">
+      <ion-col col-2></ion-col>
+      <ion-col col-9>
+        <div text-center style="">
+          <img src="{{ profilePhoto }}" style="height: 130px; width: 130px;border-radius: 50%;" imageViewer/>
+
+        <span><ion-icon padding-left name="ai-edit" (click)="changeImage()" style="font-size:30px;"></ion-icon></span>
+        </div>
+      </ion-col>
+      <ion-col col-1>
+      </ion-col>
+
+    </ion-row>
+    <ion-row text-center>
+      <ion-col col-2></ion-col>
+      <ion-col col-8>
+        <p style="padding-left:25px;" no-margin text-center class="font-18">{{ userName }} <ion-icon padding-left name="ai-edit" (click)="editUserName()" style="font-size:30px;"></ion-icon></p>
+
+
+        <ion-col col-2>
+        </ion-col>
+      </ion-col>
+    </ion-row>
+   </div>
+
+
+  <div >
+
+    <ion-list mode="ios">
+      <button ion-item (click)="reviews()">
+        {{ 'My Reviews' | translate }}
+      </button>
+
+      <button ion-item (click)="addAddresses()">
+        {{ 'Saved Addresses' | translate }}
+      </button>
+
+      <button ion-item (click)="changePassword()">
+        {{ 'Password' | translate }}
+      </button>
+
+      <ion-item>
+        <ion-label> {{ 'Languages' | translate }}</ion-label>
+        <ion-select [(ngModel)]="globals.language" (ionChange)="selectCurrency(e)">
+          <ion-option value="en">ENGLISH</ion-option>
+          <ion-option value="de">GERMAN</ion-option>
+          <ion-option value="es">SPANISH</ion-option>
+          <ion-option value="tr">TURKISH</ion-option>
+        </ion-select>
+      </ion-item>
+
+       <ion-item (click)="finances()">
+         {{ 'Finances' | translate }}
+      </ion-item>
+
+      <ion-item>
+        <ion-label> {{ 'Currency' | translate }}</ion-label>
+        <ion-select [(ngModel)]="globals.currency" (ionChange)="selectLanguage(e)">
+          <ion-option value="EUR">EUR</ion-option>
+          <ion-option value="USD">USD</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <button ion-item (click)="help()">
+        {{ 'Help and Feedback' | translate }}
+      </button>
+
+      <button ion-item (click)="share()">
+        {{ 'Invite Friends' | translate }}
+      </button>
+      <button ion-item (click)="openFaq()">
+        {{ 'FAQ' | translate }}
+      </button>
+      <button ion-item (click)="termsAndConditions()">
+        {{ 'Terms & Conditions' | translate }}
+      </button>
+      <button ion-item (click)="privacyPolicy()">
+        {{ 'Privacy Policy' | translate }}
+      </button>
+      <button ion-item no-lines (click)="logOut()"> {{ 'Sign Out' | translate }}
+        <button ion-button color="dark" clear icon-only item-end></button>
+      </button>
+    </ion-list>
+  </div>
+</ion-content>
+
+<!-- Edit Profile Picture -->
+
+<!-- Confirmation popup -->
+<div id="dialog" class="custom-dialog" style="visibility:hidden" text-center="">
+  <div class="dialog">
+    <div class="dialog-content">
+      <h2>{{ 'Attach an item' | translate }}</h2>
+      <ion-row>
+        <ion-col text-center="">
+          <ion-icon name="ai-gallery" (click)="pickPicture()"></ion-icon>
+          <p>{{ 'Gallery' | translate }}</p>
+        </ion-col>
+        <ion-col text-center="" (click)="takePicture()">
+          <ion-icon name="ai-camera"></ion-icon>
+          <p>{{ 'Camera' | translate }}</p>
+        </ion-col>
+      </ion-row>
+    </div>
+    <ion-grid class="dialog-buttons" no-padding>
+      <ion-row nowrap>
+        <ion-col no-padding style="border-left: none;">
+          <button no-padding ion-button clear icon-left color="primary" (click)="CancelDialog()"> {{ 'Cancel' | translate }}</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</div><!-- end confirm popup -->
+
+
+<!--<div   id="dialog" style="visibility:hidden">-->
+    <!--<div class="img-bg" style="position:absolute;left:0;top:0;width:100%;height: 95%;z-index:1000000;opacity:0 ">-->
+    <!--</div>-->
+    <!--<div class="dialog" >-->
+      <!--<p style="font-24; padding-top:2px;text-align:center; align-center; color:#000000"> {{ 'Attach an item' | translate }}</p>-->
+<!--<ion-grid no-padding style="margin-top:20px;margin-bottom:20px;">-->
+
+    <!--<ion-row nowrap>-->
+      <!--<ion-col no-padding col-6 style=" text-align: center">-->
+        <!--&lt;!&ndash;<ion-item class="no-padding">&ndash;&gt;-->
+          <!--&lt;!&ndash;<ion-label class="font-18" style="margin-left:5px;">Cost: </ion-label>&ndash;&gt;-->
+          <!--<button no-padding ion-button clear icon-left color="dark" style="margin:0" class="gallery"  (click)="pickPicture()"></button>-->
+        <!--&lt;!&ndash;</ion-item>&ndash;&gt;-->
+        <!--<p style="font-20;margin:0"> {{ 'Gallery' | translate }}</p>-->
+      <!--</ion-col>-->
+
+
+      <!--<ion-col no-padding col-6 style=" text-align: center;">-->
+        <!--&lt;!&ndash;<ion-item class="no-padding">&ndash;&gt;-->
+          <!--&lt;!&ndash;<ion-label class="font-18" style="margin-left:5px;">Cost: </ion-label>&ndash;&gt;-->
+          <!--&lt;!&ndash;<ion-input class="font-18" type="number" [(ngModel)]="productCost" (ionFocus)="removeCost()" placeholder="0"  style="margin-left:25px;text-align:center; width: 70px; height: 70px; border-radius: 100%; border: 2px solid blue;" clearOnEdit={{clearOnEdit}}></ion-input>-->
+        <!--</ion-item>&ndash;&gt;-->
+        <!--<button no-padding ion-button clear icon-right color="dark" style="margin:0" class="camera"  (click)="takePicture()"></button>-->
+          <!--&lt;!&ndash;<ion-icon style="background-color:transparent;font-size: 40px" name="camera"></ion-icon></button>&ndash;&gt;-->
+        <!--<p no-padding  style="font-20;margin:0"> {{ 'Camera' | translate }}</p>-->
+      <!--</ion-col>-->
+      <!--</ion-row>-->
+  <!--</ion-grid>-->
+
+      <!--<p  text-center   style="color:#029FF9;padding-top:10px; font-size:18px;margin-bottom:0px;margin-top:0px;border-top:0.5px solid #000000;" (click)="CancelDialog()">   {{ 'Cancel' | translate }}</p>-->
+    <!--</div>-->
+  <!--</div>-->
+

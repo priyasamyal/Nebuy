@@ -1,0 +1,23 @@
+page-login {
+  .segment {
+    margin-bottom: 16%;
+  }
+
+  .login-btn, .code-btn {
+    max-width: 70%;
+    margin: 0 auto;
+  }
+  .form-container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
+    .list {
+      margin-bottom: 26px;
+    }
+
+    .item.underlined-field, .item.underlined-field + div {
+      max-width: 60%;
+      margin: 0 auto;
+    }
+  }
+}

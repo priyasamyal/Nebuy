@@ -1,0 +1,29 @@
+.md,
+.ios {
+    page-register {
+        .scroll-content {
+            padding-bottom: 0px !important;
+        }
+        .swiper-slide {
+            display: block;
+        }
+        .privacy {
+            span {
+                color: map_get($colors, primary);
+            }
+        }
+        .form-container {
+            margin: 0 auto;
+        }
+        .datetime {
+            color: map_get($colors, white);
+        }
+        .row.underlined-field,
+        .item.underlined-field {
+            margin: 0 auto;
+        }
+        .submit-button {
+            margin-top: 10%;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+.md , .ios {
+  page-active-orders {
+    .header {
+      .toolbar-title {
+        font-size: 1rem;
+        p:first-of-type {
+          font-size: 1.6rem;
+          text-transform: none !important;
+        }
+      }
+    }
+    .toolbar-title {
+      p {margin: 0;}
+    }
+
+  }
+}

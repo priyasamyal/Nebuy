@@ -1,0 +1,21 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>saved-address</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let address of addressList" (click)="chooseAddress(address)">
+      <ion-icon name="ai-location" item-start=""></ion-icon>
+      <h2>{{address.nickname}}</h2>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+
+</ion-footer>

@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-title align-title="center">
+      <p>{{ "Active orders near you" | translate }}</p>
+      <p>{{'Pull down to refresh' | translate}}</p>
+    </ion-title>
+    <ion-buttons end>
+      <button
+        navTooltip
+        ion-button=""
+        clear
+        icon-only=""
+        tooltip="{{'Requests tooltip' | translate}}"
+        duration="4000"
+        positionV="top" arrow
+        class="info-button">
+        <ion-icon color="primary" name="ios-information-circle-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-bounce>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content ></ion-refresher-content>
+  </ion-refresher>
+  <ng-container *ngFor="let item of obsArray">
+    <ion-card *ngIf="item?.status == 'active' && item.buyer_id !== globals.current_userUID" class="delivery-card">
+      <!-- shop name and photo -->
+      <ion-item text-center class="shop-title">
+        <ion-avatar *ngIf="item?.shop?.shop_photo" >
+          <img src="{{ item?.shop?.shop_photo}}"/>
+        </ion-avatar>
+        <h2 (click)="navigate(order?.shop?.lat, order?.shop?.lng, order?.shop?.shop_name)">{{ item?.shop?.shop_name}}</h2>
+      </ion-item>
+
+      <!-- Order details -->
+      <ion-grid class="order-details">
+        <ion-row>
+          <ion-col>
+            <p text-left>
+              {{ 'Reward' | translate }}:
+              <span class="text-dark text-bold">{{ (item?.reward * 1) | currency:globals.currency:true  }}</span>
+            </p>
+          </ion-col>
+          <ion-col>
+            <p text-right>
+              {{ 'Budget' | translate }}:
+              <span class="text-dark">{{ item?.cost | currency:globals.currency:true }}</span>
+            </p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row (click)="navigate(item?.delivery_address?.lat, item?.delivery_address?.lng, order?.delivery_address?.name)">
+          <ion-item>
+            <ion-icon name="navigate" item-left>
+            </ion-icon>
+            <p ion-text="" color="blueapp" no-padding no-margin text-wrap>{{item?.delivery_address?.name}} {{item?.delivery_address?.address}}</p>
+          </ion-item>
+        </ion-row>
+
+        <ion-row class="action-buttons" justify-content-between="">
+          <ion-col no-padding class="flex-left">
+            <button ion-button="" class="shadow-button" icon-start="" (click)="viewDetails(item)" round outline color="grey">
+              <ion-icon name="ai-view" color="primary"></ion-icon>
+              {{ 'Details' | translate }}
+            </button>
+          </ion-col>
+          <ion-col no-padding class="flex-right">
+            <button ion-button="" class="shadow-button" icon-start="" (click)="deliver(item.uid, item.buyer_id, item)" round outline color="grey">
+              <ion-icon name="ai-delivering" color="primary"></ion-icon>
+              {{ 'Deliver' | translate }}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </ng-container>
+
+  <div *ngIf="obsArray.length == 0">
+    <p text-center> {{ noOrder | translate }}</p>
+  </div>
+
+</ion-content>

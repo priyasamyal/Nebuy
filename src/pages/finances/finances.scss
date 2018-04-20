@@ -1,0 +1,11 @@
+.md, .ios {
+  page-finances {
+    .earning {
+      color: map_get($colors, primary);
+      font-size: 4rem;
+    }
+    .item {
+      margin-bottom: 20%;
+    }
+  }
+}

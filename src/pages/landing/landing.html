@@ -1,0 +1,28 @@
+<ion-header>
+</ion-header>
+
+
+<ion-content class="tutorial-page background" no-bounce>
+
+  <div class="logo-container">
+    <img class="logo" src="./assets/img/logo.svg">
+
+    <p>
+      <span>Don't just shop.</span>
+      <span> Deliver.</span>
+    </p>
+  </div>
+
+  <div style="position:fixed;bottom:0px;width:100%;z-index:999">
+    <ion-grid class="no-padding">
+      <ion-row>
+        <ion-col width-50>
+          <button text-capitalize color="button" ion-button block round (click)="goToLogin()"> {{ 'Login' | translate }}</button>
+        </ion-col>
+        <ion-col width-50>
+          <button text-capitalize color="button" ion-button block round (click)="goToSignup()"> {{ 'Signup' | translate }}</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

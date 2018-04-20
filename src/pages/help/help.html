@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title align-title="center">
+      <ion-icon name="ai-support"></ion-icon>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding="">
+  <ion-list no-lines="">
+    <ion-item text-center="">
+      <h2>  {{ 'Help us keep our community healthy and save' | translate }}</h2>
+    </ion-item>
+
+    <ion-item class="outline-field" margin-bottom="">
+      <ion-textarea [(ngModel)]="helpText" (ionInput)="removeError()" (ionFocus)="removeError()" placeholder=" {{ 'Describe your issue here' | translate }}">
+      </ion-textarea>
+    </ion-item>
+    <p *ngIf="submitAttempt" class="error"> {{ 'Please Write something first' | translate }}</p>
+
+    <ion-item text-center="">
+      <h2 class="text-light">{{ 'You can attach a photo as well' | translate }}</h2>
+      <button ion-button clear icon-only="" color="dark" (click)="choosePhoto()">
+        <ion-icon name="ai-camera"></ion-icon>
+      </button>
+    </ion-item>
+
+    <ion-item margin-bottom="">
+      <ion-row nowrap>
+        <ion-avatar *ngFor="let i of images">
+          <img src="data:image/png;base64,{{i}}" imageViewer />
+        </ion-avatar>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer *ngIf="!isKeyboardOpen" class="button-footer">
+  <button class="proceed-button" ion-button round block color="primary" (click)="submit()" [disabled]="helpText === ''">
+    <div>
+      <p> {{ 'Send report' | translate }}</p>
+    </div>
+  </button>
+</ion-footer>

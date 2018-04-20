@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title align-title="center">
+       <!--{{ 'Finances' | translate }}-->
+      <ion-icon name="ai-wallet"></ion-icon>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <ion-list no-lines="">
+    <ion-item text-center="">
+      <h2 text-wrap="">
+        {{ 'Thank you for being part of our growing community' | translate }}
+      </h2>
+    </ion-item>
+    <ion-item text-center="">
+      <h2 text-wrap="">
+        {{ 'So for you have earned' | translate }}
+      </h2>
+      <p class="earning">
+        {{totalReward | currency:globals.currency:true}}
+      </p>
+    </ion-item>
+    <ion-item style="margin-bottom: 20%;" text-center="">
+      <h2 text-wrap="">
+        {{ 'Increase you earnings by finding new orders to deliver' | translate }}.
+      </h2>
+    </ion-item>
+  </ion-list>
+</ion-content>

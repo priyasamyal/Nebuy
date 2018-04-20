@@ -1,0 +1,19 @@
+.md, .ios {
+  page-address-list {
+    .list-style {
+      background: none;
+    }
+
+    .location-search.searchbar {
+      .searchbar-search-icon {
+        width: 20px;
+        height: 20px;
+        background-size: 19px;
+      }
+      padding-right: 0;
+      .searchbar-input {
+        border-radius: 6px;
+      }
+    }
+  }
+}

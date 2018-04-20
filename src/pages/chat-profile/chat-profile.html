@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title align-title="center">
+    {{ (recipientprofile | async)?.user_name }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding-top="">
+  <div text-center>
+    <img class="profile-photo" src="{{ (recipientprofile | async)?.profile_photo }}" onError="this.src='./assets/img/demo.png'">
+  </div>
+  <ion-list class="review-list" no-lines="">
+    <ion-item *ngFor="let review of userReviews$ | async">
+      <ion-avatar item-start="">
+        <img *ngIf="review.profile_photo"
+             src="{{ review.profile_photo}}"
+             onError="this.src='./assets/img/demo.png'"
+              />
+      </ion-avatar>
+      <h2>{{review.name}}</h2>
+      <p *ngIf="review.rating > 0">
+        <rating
+        [ngModel]="review.rating"
+        readOnly="true"
+        max={{review.rating}}
+        emptyStarIconName="ai-star-outline"
+        halfStarIconName="ai-star-half"
+        starIconName="ai-star" nullable="false">
+        </rating>
+      </p>
+      <p class="text-light">{{review?.review}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

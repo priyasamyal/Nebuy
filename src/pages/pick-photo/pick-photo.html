@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar color="white">
+    <ion-title text-capitalize="">{{ 'Attach an item' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center="">
+        <ion-icon name="ai-gallery" (click)="pickImage()"></ion-icon>
+        <p>{{ 'Gallery' | translate }}</p>
+      </ion-col>
+      <ion-col text-center="" (click)="openCamera()">
+        <ion-icon name="ai-camera"></ion-icon>
+        <p>{{ 'Camera' | translate }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="white" no-padding="">
+    <button ion-button="" clear color="primary" block (click)="close()">{{ 'Cancel' | translate }}</button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,243 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="deliveryStatus" mode="md" color="dark">
+      <ion-segment-button value="active">
+        <ion-icon name="ai-delivery"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button value="finished">
+        <ion-icon name="ai-message"></ion-icon>
+        <ion-badge *ngIf="globals.myDeliveriesNotifications>0" color="danger" item-right>{{globals.myDeliveriesNotifications}}</ion-badge>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+<div [ngSwitch]="deliveryStatus">
+  <div *ngSwitchCase="'active'">
+
+  <ng-container *ngFor="let item of userDeliveries$ | async">
+    <ion-card class="delivery-card" [ngClass]="item?.status"
+              *ngIf="item?.status === 'comfirming' ||
+            item?.status === 'delivering'">
+      <ng-container>
+        <ion-card-header text-center *ngIf="item?.status === 'comfirming'">{{ 'Waiting to confirm' | translate }}</ion-card-header>
+        <ion-card-header text-center *ngIf="item?.status === 'delivering'">{{ 'I am Delivering' | translate }}</ion-card-header>
+        <ion-item no-lines class="shop-title">
+          <ion-avatar item-start="" *ngIf="item?.shop?.shop_photo">
+            <img src="{{ item?.shop?.shop_photo}}"/>
+          </ion-avatar>
+          <h2 (click)="navigate(order?.shop?.lat, order?.shop?.lng, order?.shop?.shop_name)">{{ item?.shop?.shop_name}}</h2>
+        </ion-item>
+        <!-- Order details -->
+        <ion-grid class="order-details">
+          <ion-row *ngIf="item?.status === 'delivering'">
+            <ion-col>
+              <p text-left>
+                {{ 'Reward' | translate }}:
+                <span class="text-dark text-bold">{{(item?.reward * 1) | currency:globals.currency:true}}</span>
+              </p>
+            </ion-col>
+            <ion-col>
+              <p text-right>
+                {{ 'Budget' | translate }}:
+                <span class="text-dark text-bold">{{ item?.cost | currency:globals.currency:true }}</span>
+              </p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="item?.status === 'comfirming'">
+            <ion-col>
+              <p text-left>
+                {{ 'Reward' | translate }}:
+                <span class="text-dark text-bold">{{(item?.delivery_cost * 1) | currency:globals.currency:true}}</span>
+              </p>
+            </ion-col>
+            <ion-col>
+              <p text-right>
+                {{ 'Cost' | translate }}:
+                <span class="text-dark text-bold">{{ item?.actual_cost | currency:globals.currency:true }}</span>
+              </p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row (click)="navigate(item?.delivery_address?.lat, item?.delivery_address?.lng, item?.delivery_address?.name)">
+            <ion-item>
+              <ion-icon name="navigate" item-left>
+              </ion-icon>
+              <p ion-text="" color="blueapp" no-padding no-margin text-wrap>{{item?.delivery_address?.name}} {{item?.delivery_address?.address}}</p>
+            </ion-item>
+          </ion-row>
+
+          <ng-container>
+            <ion-grid no-padding="">
+              <ion-row align-items-stretch="">
+                <ion-col col-4>
+                  <ion-row>
+                    <button ion-button class="shadow-button" round outline block icon-left color="grey" (click)="report(item)">
+                      <ion-icon name="ai-eye" color="primary"></ion-icon>
+                      {{ 'Report' | translate }}
+                    </button>
+                  </ion-row>
+                  <ion-row>
+                    <button ion-button class="shadow-button" round outline block icon-left color="grey"  (click)="cancelOrder(item)">
+                      <ion-icon color="primary" name="ai-cancel"></ion-icon>
+                      {{ 'Cancel' | translate }}
+                    </button>
+                  </ion-row>
+                </ion-col>
+                <ion-col col-4 class="full-height">
+                  <button ion-button class="shadow-button big-button" round outline block color="grey" (click)="viewDetails(item)">
+                    <ion-icon color="primary" name="ai-view"></ion-icon>
+                    <span>{{ 'View' | translate }}</span>
+                  </button>
+                </ion-col>
+                <ion-col col-4>
+                  <ion-row>
+                    <button ion-button class="shadow-button" round outline block icon-left color="grey" (click)="message(item)">
+                      <ion-icon name="ai-chat" color="primary"></ion-icon> {{ 'Chat' | translate }}
+                      <ion-badge color="danger" *ngIf="globals.chatNotifications[item.chat_id]" item-end>{{globals.chatNotifications[item.chat_id]}}</ion-badge>
+                    </button>
+                  </ion-row>
+                  <ion-row>
+                    <button ion-button class="shadow-button" round outline block icon-left color="grey" (click)="confirm(item)" [disabled]="item?.status === 'comfirming'">
+                      <ion-icon name="ai-confirm"  color="primary"></ion-icon>
+                      {{ 'Confirm' | translate }}
+                    </button>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ng-container>
+        </ion-grid>
+      </ng-container>
+    </ion-card>
+  </ng-container>
+
+ <ion-card class="delivery-card order-delivered" *ngFor="let item of finishedDeliveries$  | async; let id = index">
+   <ion-card-header text-center>{{ 'delivered' | translate }}</ion-card-header>
+   <ion-item no-lines class="shop-title">
+     <ion-avatar item-start="" *ngIf="item?.shop?.shop_photo">
+       <img src="{{ item?.shop?.shop_photo}}"/>
+     </ion-avatar>
+     <h2>{{ item?.shop?.shop_name}}</h2>
+   </ion-item>
+   <p text-center="">
+     {{ 'Earned' | translate }}:
+     <span class="text-dark text-bold">{{(item?.delivery_cost)  | currency:globals.currency:true }}</span>
+     <!--<span class="text-dark text-bold" *ngIf="item?.reward !==''">{{ item?.reward  | currency:globals.currency:true }}</span>-->
+     <!--<span class="text-dark text-bold" *ngIf="item?.reward ===''">{{ 0  | currency:globals.currency:true }}</span>-->
+   </p>
+
+   <ion-row class="action-buttons more-than-two" justify-content-between="">
+     <ion-col no-padding>
+       <button ion-button="" class="shadow-button" icon-start="" (click)="deleteDelivery(item.seller_id,item)" round outline color="grey">
+         <ion-icon name="ai-delete" color="primary"></ion-icon>
+         {{ 'Delete' | translate }}
+       </button>
+     </ion-col>
+     <ion-col no-padding>
+       <!-- (click)="rate(item)" [disabled]="item.rated" -->
+       <button ion-button="" class="shadow-button" [disabled]="item?.rated" icon-start="" (click)="rateDelivery(item)" round outline color="grey">
+         <ion-icon name="ai-rate" color="primary"></ion-icon>
+         {{ 'Rate' | translate }}
+       </button>
+     </ion-col>
+     <ion-col no-padding>
+       <button ion-button="" class="shadow-button" icon-start="" (click)="viewDetails(item)" round outline color="grey">
+         <ion-icon name="ai-view" color="primary"></ion-icon>
+         {{ 'View' | translate }}
+       </button>
+     </ion-col>
+   </ion-row>
+  </ion-card>
+  </div>
+
+
+
+     <div *ngSwitchCase="'finished'">
+       <ng-container *ngFor="let item of userDeliveries$  | async; let id = index">
+         <div *ngIf="item.chat_id && !item.chat_deleted" class="relative chat-buttons">
+           <button  class="shadow-button view-order" ion-button="" icon-only="" color="grey" outline (click)="viewDetails(item)">
+             <ion-icon name="ai-view-order"></ion-icon>
+           </button>
+           <button class="shadow-button view-user" ion-button="" color="grey" outline (click)="message(item)">
+             <!--{{userNames[id]}}-->
+             {{item.buyer_name}}
+             <ion-badge class="outline-badge" *ngIf="globals.chatNotifications[item.chat_id]>0">{{globals.chatNotifications[item.chat_id]}}</ion-badge>
+           </button>
+         </div>
+       </ng-container>
+
+     </div>
+
+
+  </div>
+
+
+</ion-content>
+
+<!-- Confirmation popup -->
+ <div id="my_confirm_dialog" class="custom-dialog" style="visibility:hidden" text-center="">
+    <div class="dialog">
+      <div class="dialog-content">
+        <h2>{{ 'Buyer will be notified that you delivered the order at the delivery address' | translate }}.</h2>
+        <p>{{ 'Buyer needs to confirm' | translate }}.</p>
+
+
+        <!-- Actual total cost of products -->
+        <ion-item class="underlined-field field-dark reward-field">
+          <ion-label>
+            <ion-icon [name]="currencyIcon" color="dark"></ion-icon>
+          </ion-label>
+          <!-- inputmode="numeric" pattern="[0-9]*" -->
+          <ion-input  type="number" pattern="[0-9]*" decimal="true" [(ngModel)]="cost" placeholder="0"></ion-input>
+        </ion-item>
+        <p> {{ 'Total cost without delivery' | translate }}</p>
+
+        <!-- Delivery cost -->
+        <ion-item class="underlined-field field-dark reward-field">
+          <ion-label>
+            <ion-icon [name]="currencyIcon" color="dark"></ion-icon>
+          </ion-label>
+          <!-- inputmode="numeric" pattern="[0-9]*" -->
+          <ion-input  type="number" pattern="[0-9]*" decimal="true" [(ngModel)]="deliveryCost" placeholder="0"></ion-input>
+        </ion-item>
+        <p> {{ 'Delivery cost' | translate }}</p>
+      </div>
+      <ion-grid class="dialog-buttons" no-padding>
+        <ion-row nowrap>
+          <ion-col no-padding col-6>
+            <button no-padding ion-button clear icon-left color="primary" (click)="CancelDialog()"> {{ 'Not yet' | translate }}<br/> {{ 'delivered' | translate }}</button>
+          </ion-col>
+          <ion-col no-padding col-6>
+            <button no-padding ion-button clear icon-right color="primary" (click)="confirmdelivery()"> {{ 'Confirm' | translate }}<br/>  {{ 'delivery' | translate }}</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </div>
+</div><!-- end confirm popup -->
+
+
+<!-- Cancel delivery popup -->
+<div id="my-dialog" class="custom-dialog"  style="visibility:hidden" text-center="">
+  <div class="dialog">
+    <div class="dialog-content">
+      <h2>{{ 'This order will be removed from your list and other users will be able to deliver it' | translate }}.</h2>
+      <p> {{ 'Buyer will be notified as well' | translate }}.</p>
+    </div>
+    <ion-grid no-padding class="dialog-buttons">
+      <ion-row nowrap>
+        <ion-col no-padding col-6>
+          <button no-padding ion-button clear icon-left color="primary" (click)="cancelDelivry()">{{ 'Cancel' | translate }}<br/>  {{ 'delivery' | translate }} </button>
+
+        </ion-col>
+        <ion-col no-padding col-6>
+          <button no-padding ion-button clear icon-right color="primary" (click)="CancelDialog()">{{ 'Continue' | translate }}<br/> {{ 'delivery' | translate }} </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</div>

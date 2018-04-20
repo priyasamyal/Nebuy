@@ -1,0 +1,30 @@
+page-landing {
+
+  div.swiper-pagination {
+     top:20px;
+     bottom:inherit;
+  }
+
+
+  .logo-container {
+    height: 100%;
+    @include flex();
+    @include flex-direction(column);
+    @include align-items(center);
+    @include justify-content(center);
+    .logo {
+      //max-width: 300px;
+      width: 72%;
+      padding: 16px;
+      margin-bottom: 10%;
+      border: 2px solid map_get($colors, dark);
+    }
+    p {
+      font-weight: 500;
+      font-size: 2.3rem;
+      span:last-child {
+        color: map_get($colors, white)
+      }
+    }
+  }
+}

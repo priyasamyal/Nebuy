@@ -1,0 +1,37 @@
+.md, .ios {
+  page-edit-modal {
+    .item.item-divider {
+      background: #eee;
+    }
+
+    .input.underlined-field.field-dark {
+      border-bottom: 2px solid map-get($colors, dark);
+      &:before, &:after {
+        background: map-get($colors, dark);
+      }
+    }
+
+    .product-field {
+      .input-wrapper {
+        @include align-items(flex-end);
+        .label {
+          margin: 0;
+        }
+      }
+    }
+    .datetime-text {
+      overflow: hidden;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      /* flex: 1; */
+      min-width: 100%;
+      /* min-height: 1.2em; */
+      font-size: medium;
+      line-height: 1.2;
+      text-overflow: initial;
+      white-space: nowrap;
+    }
+
+  }
+}

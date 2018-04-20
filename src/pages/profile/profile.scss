@@ -1,0 +1,135 @@
+
+
+page-profile {
+    ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 0px;
+    -webkit-margin-after: 0px;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+    }
+
+       .toolbar-md {
+    /* padding: 4px; */
+    min-height: 0px;
+    margin: 0px 0px 0px 0;
+    padding: 0;
+}
+.toolbar-ios {
+    /* padding: 4px; */
+    min-height: 0px;
+    margin: 0px 0px 0px 0;
+    padding: 0;
+}
+    
+//     ion-item:hover  {
+//   background-color: #7faaf8 !important;
+// }
+
+.ion-ios-create:before {
+    content: url('../assets/img/edit.png');
+    background-size: 7px;
+    width: 5px !important;
+    height: 5px !important;
+    display: contain;
+}
+
+.ion-md-star:before {
+    content: url('../assets/img/star.png');
+}
+
+.ion-ios-star:before {
+    content: url('../assets/img/star.png ') ;
+
+}
+
+.ion-md-create:before {
+    content: url('../assets/img/edit.png');
+    background-size: 7px;
+    width: 5px !important;
+    height: 5px !important;
+    display: contain;
+}
+
+.ion-md-arrow-forward:before {
+    content: url('../assets/img/right-arrow.png');
+}
+
+.ion-ios-arrow-forward:before {
+    content: url('../assets/img/right-arrow.png');
+}
+
+
+ .gallery{
+ background: url('../assets/img/icons8-Picture-64.png') center center no-repeat; 
+        background-size: 50px; 
+        background-color: #fff; 
+        width: 64px; 
+        height: 64px; 
+        text-transform: lowercase;
+        border-radius: 100%; 
+        border: 0.5px solid #029ff9;
+
+    }
+
+    .camera{
+
+ background: url('../assets/img/icons8-Compact Camera-64.png') center center no-repeat; 
+        background-size: 50px; 
+        background-color: #fff; 
+        width: 64px; 
+        height: 64px; 
+        text-transform: lowercase;
+        border-radius: 100%; 
+        border: 1px solid #029ff9;
+
+    }
+
+    .dialog{
+
+    z-index: 10000000;
+    width: 80%;
+    height: 220px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    display: block;
+    margin: auto;
+    border-radius: 5px;
+    }
+
+    .list-md .item-block {
+  border-bottom: 1px solid #828282;
+  width: 100% ;
+  margin-left: auto;
+  margin-right: auto;
+}
+.list-md .item-block .item-inner {
+  border-bottom: 0;
+}
+
+.list-ios .item-block {
+  border-bottom: 0.75px solid #828282;
+  width: 100% ;
+  margin-left: 0;
+  margin-right: 0;
+}
+.list-ios .item-block .item-inner {
+  border-bottom: 0;
+}
+
+
+.img-b{
+    position: relative;
+	overflow: hidden;
+}
+
+
+
+    
+}

@@ -1,0 +1,817 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+@import "../theme/icons";
+@import "ionicons";
+
+
+/* ========== OTHER SETTINGS ========== */
+
+.img-bg{
+    position: relative;
+	overflow: hidden;
+}
+
+
+
+
+
+//Global margin and padding:
+.no-padding{
+		padding: 0;
+}
+.no-margin{
+	margin:0;
+}
+.no-margin-top{
+	margin-top: 0px;
+}
+.no-margin-bottom{
+	margin-bottom:0px;
+}
+.no-padding-left{
+	padding-left:0;
+}
+.no-padding-right{
+	padding-right:0;
+}
+.shadow{
+	text-shadow: 1px 1px 4px #000000 ;
+}
+.padding{
+    padding: 8px;
+}
+.no-padding-top{
+	padding-top:0;
+}
+.no-padding-bottom{
+	padding-bottom:0;
+}
+.padding-left{
+	padding-left: 8px;
+}
+.padding-right{
+	padding-right:8px;
+}
+.padding-top{
+	padding-top:8px;
+}
+.padding-bottom{
+	padding-bottom: 8px;
+}
+
+.padding-tp-12{
+	padding-top:12px;
+}
+.padding-bt-12{
+	padding-bottom:12px;
+}
+
+.app-padding{
+    padding-top: 16px;
+    padding-right: 2px;
+    padding-bottom: 16px;
+    padding-left: 2px;
+}
+.margin-left{
+	margin-left: 8px;
+}
+.margin-right{
+	margin-right:8px;
+}
+.margin-top{
+	margin-top:8px;
+}
+.margin-bottom{
+	margin-bottom: 8px;
+}
+
+.margin-left-lg{
+	margin-left: 16px;
+}
+.margin-right-lg{
+	margin-right:16px;
+}
+.margin-top-lg{
+	margin-top:16px;
+}
+.margin-bottom-lg{
+	margin-bottom: 16px;
+}
+
+//Text alignment
+.text-left{
+	text-align: left;
+}
+.text-right{
+	text-align: right;
+}
+.text-center{
+	text-align: center;
+}
+.text-justify{
+	text-align: justify;
+}
+
+.text-white{
+    color:white;
+}
+
+tooltip-box[_nghost-c0] {
+  border-radius: 10px;
+  background: white;
+  color: map_get($colors, primary);
+  border: 2px solid map_get($colors, primary);
+}
+
+//.has-arrow.arrow-bottom[_nghost-c0]:before {
+//  border-top: 20px solid lightblue !important;
+//  bottom: -30px !important;
+//  right: 20%
+//}
+
+.has-arrow.arrow-bottom[_nghost-c0]:before {
+  border: none;
+}
+
+@media screen and (min-width: 768px) {
+  html {
+    font-size: calc(8px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+  }
+}
+//@media screen and (min-width: 1025px) {
+//  html {
+//    font-size: 16px;
+//  }
+//}
+
+.md, .ios {
+  .ion-ios-navigate:before {
+    content: '';
+    display: block;
+    width: 2.6rem;
+    height: 2.6rem;
+    background: url('../assets/img/orientation.svg') no-repeat;
+    background-size: contain;
+  }
+
+  /**
+  Header Styles
+ ===============================================*/
+  .header {
+    .bar-button {
+      color: map_get($colors, dark);
+    }
+    .toolbar {
+      .toolbar-title {
+        text-transform: uppercase;
+        font-weight: normal;
+      }
+    }
+  }
+
+  h2.alert-title {
+    font-weight: 500;
+  }
+
+
+  .chat-buttons {
+    .shadow-button {
+      border-radius: 8px;
+      &.view-order {
+        height: 5rem !important;
+        width: 5rem;
+        margin: 4px;
+        .button-inner {
+          @include center();
+        }
+      }
+
+      &.view-user {
+        width: calc(100% - 5rem);
+        height: unset !important;
+        padding: 0 2%;
+        .button-inner {
+          @include flex();
+          @include justify-content(space-between);
+        }
+      }
+    }
+    @include flex();
+    @include justify-content(stretch);
+    @include align-items(stretch);
+
+
+  }
+
+  /**
+ Form Styles
+===============================================*/
+  .country-code-input {
+    .label {
+      margin: 18px 8px 4px 0;
+    }
+  }
+
+  p.error {
+    color: map_get($colors, danger);
+    font-size: 1.2rem;
+  }
+
+  .row.country-code-input {
+    margin: 0 auto 10%;
+    input, .button {
+      position: relative;
+      top: 8px;
+      font-size: 1.7rem;
+    }
+    .button {
+      top: 5px;
+      font-size: 1.7rem;
+    }
+  }
+
+  .item.underlined-field, .row.underlined-field, .input.underlined-field {
+    padding-left: 0;
+    background: transparent;
+    position: relative;
+    border-bottom: 1px solid map_get($colors, white);
+
+    &.reward-field {
+      contain: unset;
+      max-width: 30%;
+      position: relative;
+      margin: 0 auto;
+      font-size: 2.6rem;
+      overflow: visible;
+      input {
+        color: map_get($colors, dark);
+      }
+      .icon {
+        position: absolute;
+        left: -2.2rem;
+        bottom: 0;
+      }
+    }
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      height: 6px;
+      width: 1px;
+      background: map_get($colors, white);
+      bottom: 0;
+    }
+    &:after {
+      right: 0;
+    }
+    input {
+      text-align: center;
+      color: map_get($colors, white);
+      &.text-input {
+        margin: 13px 8px 0px;
+      }
+    }
+    .datetime {
+      width: 100%;
+      text-align: center;
+      padding-bottom: 0;
+    }
+
+    &.field-dark {
+      border-bottom: 2px solid map_get($colors, dark);
+      input {
+        color: map_get($colors, dark);
+      }
+      &::before, &::after {
+        background: map_get($colors, dark);
+        width: 2px;
+      }
+    }
+  }
+
+  .item.outline-field {
+    border: 1px solid map_get($colors, light-grey);
+    padding-left: 0;
+    border-radius: 2px;
+    &.item-textarea {
+      textarea {
+        padding: 0;
+        min-height: 140px;
+      }
+    }
+  }
+
+  ul.rating {
+    padding: 0;
+    margin: 0;
+    .icon {
+      color: map_get($colors, star-color);
+      &::before {
+        font-size: 1.8rem !important;
+      }
+    }
+  }
+  .vertical-flex-content {
+    height: 100%;
+    @include flex();
+    @include flex-direction(column);
+    @include justify-content(space-around);
+    @include align-items(center);
+  }
+
+  .location-search {
+    @include flex();
+  }
+
+  .location-list-container {
+    height: calc(100% - 50px);
+    background: #fafafa;
+    overflow: auto;
+    position: relative;
+    &.delivery-list {
+      padding-bottom: 250px;
+    }
+    .item {
+      border-bottom: 1px solid darken(map_get($colors, light), 10%);
+    }
+    .icon::before {
+      font-size: 2rem;
+    }
+  }
+
+
+  .location-search.searchbar {
+    background: transparent;
+    border: none;
+    padding-right: 10px;
+    .searchbar-input {
+      border: 1px solid map_get($colors, grey);
+      //padding-left: 16px !important;
+      //padding-left: 8px;
+      margin-right: 30px;
+      height: 3.8rem;
+      text-overflow: ellipsis;
+      @include border-radius(0);
+
+    }
+  }
+  .location-search.searchbar.searchbar-has-value .searchbar-clear-icon {
+    background: none;
+    margin-top: 0px;;
+    @include center();
+    width: auto;
+    padding: 0 3px;
+    &::before {
+      text-align: center;
+      content: '\72';
+      font-family: $icon-font-family;
+      color: map_get($colors, grey);
+      font-size: 1.8rem;
+    }
+  }
+
+  /**
+Badge Styles
+===============================================*/
+.outline-badge {
+  background: none;
+  border: 1px solid map_get($colors, danger);
+  color: map_get($colors, danger);
+  font-size: 1.8rem;
+  border-radius: 50%;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+
+  /**
+Common page Styles
+===============================================*/
+  image-viewer.ion-page ion-navbar .bar-button-default {
+    color: white;
+  }
+
+  page-login, page-register, page-enter-code, page-enter-username {
+    .header {
+      .bar-button {
+        color: map_get($colors, white);
+      }
+    }
+
+    .scroll-content {
+      background: map_get($colors, dark);
+    }
+
+    p:not(.error) {
+      color: map_get($colors, white);
+    }
+
+    .logo-container {
+      margin: 10% auto;
+      width: 70%;
+      max-width: 200px;
+      .logo {
+        width:100%;
+      }
+    }
+    .form-container {
+      width: 100%;
+      max-width: 500px;
+    }
+  }
+  page-my-orders, page-my-deliveries {
+    .header {
+      .toolbar {
+        padding: 0;
+      }
+    }
+    .segment {
+      .segment-button {
+        max-width: none;
+        height: 100%;
+        line-height: normal;
+        &.segment-activated {
+          .icon[name="ai-message"]::before {
+            content: '\63';
+          }
+          .icon[name="ai-delivery"]::before {
+            content: '\45';
+          }
+        }
+        &:not(.segment-activated) {
+          border: none;
+        }
+      }
+    }
+
+    .card.delivery-card {
+      margin: 5% 0 0 0;
+      width: 100%;
+      .card-header {
+        text-transform: uppercase;
+        padding: 6px;
+        color: map_get($colors, white);
+      }
+
+      &.Confirmation, &.comfirming  {
+        border-color: map_get($colors, danger);
+        .card-header {
+          background: map_get($colors, danger);
+        }
+      }
+      &.active {
+        border-color: map_get($colors, secondary);
+        .card-header {
+          background: map_get($colors, secondary);
+        }
+      }
+      &.in_process, &.delivering {
+        border-color: map_get($colors, star-color);
+        .card-header {
+          background: map_get($colors, star-color);
+        }
+      }
+      &.in_active,  &.order-delivered {
+        border-color: map_get($colors, grey);
+        .card-header {
+          background: map_get($colors, grey);
+        }
+      }
+      &.delivered {
+        border-color: map_get($colors, delivered);
+        .card-header {
+          background: map_get($colors, delivered);
+        }
+      }
+
+      .shop-title {
+        ion-avatar {
+          margin-right: 0;
+        }
+        @include center();
+        .item-inner {
+          flex: initial;
+        }
+      }
+    }
+  }
+
+
+
+  /**
+Layout Styles
+===============================================*/
+
+  .profile-photo {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+  }
+  .width-60 {
+     max-width: 60%;
+   }
+
+  .width-50 {
+    max-width: 50%;
+  }
+
+  .width-40 {
+    max-width: 40%;
+  }
+
+  .width-70 {
+    max-width: 70%;
+  }
+
+  .center-veritcal {
+    @include flex();
+    @include flex-direction(column);
+    @include align-items(center);
+  }
+
+  .button-footer {
+    padding: 5px;
+    .proceed-button {
+      .button-inner {
+        position: relative;
+        .icon {
+          position: absolute;
+          right: 0;
+          top: 34%;
+          color: map_get($colors, dark);
+        }
+      }
+
+      &[disabled] {
+        background: lighten(map_get($colors, grey), 5%);
+        p {
+          color: map_get($colors, white);
+        }
+        .icon {
+          color: map_get($colors, white);
+        }
+      }
+      p {
+        color: map_get($colors, dark);
+        margin: 0;
+        font-size: 1.4rem;
+        &:first-child {
+          margin-bottom: 3px;
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  .nebuy-loading {
+    .backdrop {
+
+    }
+  }
+
+  .card.delivery-card {
+    box-shadow: none;
+    border: 1px solid lighten(map_get($colors, grey), 50%);
+    p {
+      font-size: 1.6rem;
+      //color: map_get($colors, dark);
+    }
+    .shop-title {
+      .label {
+        @include center();
+        h2 {
+          font-size: 2rem;
+          padding-left: 12px;
+          color: map_get($colors, blueapp);
+        }
+      }
+    }
+  }
+
+  .button.shadow-button {
+    //width: auto;
+    border-color: darken(map_get($colors, light-grey), 25%);
+    padding: 0px 0 0 4px;
+    height: 3.6rem;
+    width: 100%;
+    font-size: 1.4rem;
+    box-shadow: 1px 2px 2px #ccc;
+    .button-inner {
+      @include flex();
+      @include justify-content(flex-start);
+    }
+
+    .icon {
+      position: relative;
+      top: 3px;
+    }
+
+  }
+
+  .action-buttons {
+    .col {
+      @include center();
+      &.flex-left {
+        @include justify-content(flex-start);
+      }
+      &.flex-right {
+        @include justify-content(flex-end);
+      }
+    }
+  }
+
+  .col.full-height {
+    @include flex();
+    @include align-items(stretch);
+  }
+
+  .button.big-button {
+    border-radius: 25px;
+    white-space: initial;
+    padding: 0;
+    height: inherit;
+    .button-inner, .icon {
+      display: block;
+    }
+  }
+
+  /* Popover styles
+===========================================*/
+  .pick-photo-popover {
+    .toolbar .toolbar-title {
+      text-transform: capitalize;
+      font-weight: 500;
+    }
+  }
+
+  .popover-wrapper {
+    .popover-content {
+      max-width: 400px;
+      left: 50% !important;
+      top: 50% !important;
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+/* Date Time picker styles
+===========================================*/
+.item-datetime.underlined-field.order-date-time {
+  .datetime-text {
+    display: none;
+  }
+  .label {
+    position: absolute;
+    bottom: 4px;
+    font-weight: 500;
+    width: 100%;
+    z-index: 200;
+    font-size: 1.4rem;
+    pointer-events: none;
+  }
+}
+.picker-wrapper {
+  .picker-toolbar {
+    margin-bottom: 26px;
+    border-bottom: .1rem solid map_get($colors, grey);
+    .picker-toolbar-button .picker-button{
+      color: map_get($colors, grey);
+      font-weight:normal;
+
+    }
+  }
+}
+
+.custom-date-picker {
+  .picker-opt {
+    font-size: 1.4rem;
+  }
+  .picker-above-highlight {
+
+  }
+  .picker-columns {
+    padding: 0 16px;
+    margin-top: 4px;
+    overflow: visible;
+
+    .picker-col:nth-child(4),
+    .picker-col:nth-child(5),
+    .picker-col:nth-child(6)
+    {
+      overflow: visible;
+      position: relative;
+      &::before {
+        position: absolute;
+        left: 50%;
+        top: -26px;
+        width: 100%;
+        color: map_get($colors, dark);
+        font-size: 1.4rem;
+        font-weight: 500;
+      }
+    }
+
+    .picker-col:nth-child(4)::before {
+      content:'D';
+    }
+    .picker-col:nth-child(5)::before {
+      content:'H';
+    }
+    .picker-col:nth-child(6)::before {
+      content:'M';
+    }
+  }
+}
+
+.list-number {
+  background: map_get($colors, light-grey);
+  border: 1px solid map_get($colors, dark);
+  display: inline-block;
+  border-radius: 3px;
+  padding: 3px 6px 3px 8px;
+}
+
+/* Select styles
+===========================================*/
+.address-select {
+  [aria-checked=true] .alert-radio-inner {
+    border: none;
+  }
+  .alert-radio-icon {
+    -webkit-box-ordinal-group: 0;
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    padding-left: 16px;
+    &::before {
+      content: '\43';
+      font-family: $icon-font-family;
+      color: map_get($colors, dark);
+    }
+
+  }
+}
+
+
+
+.custom-dialog {
+  opacity: 1;
+  background: rgba(0,0,0, .5);
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height: 100%;
+  z-index:1000000;
+  &::before {
+    background: none;
+  }
+  @include center();
+  .dialog{
+    max-width: 320px;
+    width: 100%;
+    background-color: map_get($colors, white);
+    display:block;
+    border-radius: 5px;
+    @include flex();
+    @include flex-direction(column);
+    @include justify-content(space-between);
+    .dialog-buttons {
+      border-top: 1px solid map_get($colors, grey);
+      .col:last-child {
+        border-left: 1px solid map_get($colors, grey);
+      }
+    }
+    .dialog-content {
+      padding: 0px 16px;
+    }
+  }
+  .item.underlined-field {
+    margin: 0 auto;
+
+  }
+  h2 {
+    font-weight: 500;
+    font-size: 1.6rem;
+  }
+}
+
+
+

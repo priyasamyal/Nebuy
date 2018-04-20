@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-buttons left>
+      <button icon-only="" ion-button (click)="this.navCtrl.pop()">
+        <ion-icon name="ion-custom-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title align-title="center">
+      <ion-icon [name]="iconName"></ion-icon>
+    </ion-title>
+    <ion-buttons right style="visibility: hidden;">
+      <button  style="font-size: 21px;" color="button" item-end ion-button
+        (click)="proceed()">Delivery
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header >
+
+<ion-content padding="">
+  <ion-list no-lines="">
+    <ion-item text-center="">
+      <h2> {{ 'Help us keep our community healthy and save' | translate }}</h2>
+    </ion-item>
+
+    <ion-item class="outline-field" margin-bottom="">
+      <ion-textarea [(ngModel)]="complaint" (ionInput)="removeError()" (ionFocus)="removeError()" placeholder=" {{ 'Describe your issue here' | translate }}">
+      </ion-textarea>
+    </ion-item>
+    <p *ngIf="submitAttempt" class="error"> {{ 'Please Write something first' | translate }}</p>
+
+    <ion-item text-center="">
+      <h2 class="text-light">{{ 'You can attach a photo as well' | translate }}</h2>
+      <button ion-button clear icon-only="" color="dark" (click)="choosePhoto()">
+        <ion-icon name="ai-camera"></ion-icon>
+      </button>
+    </ion-item>
+
+    <ion-item margin-bottom="">
+      <ion-row nowrap>
+        <ion-avatar *ngFor="let i of images">
+          <img src="data:image/png;base64,{{i}}" imageViewer />
+        </ion-avatar>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <!--<div *ngIf="lastPage == 'ActiveOrders'">-->
+    <!--<button ion-button block color="primary" (click)="submitDetails()"> {{ 'Send report' | translate }}</button>-->
+  <!--</div>-->
+  <!--  *ngIf="lastPage !== 'ActiveOrders'" -->
+  <!--<div>-->
+    <!--<button ion-button block round color="primary" (click)="submit()"> {{ 'Send report' | translate }}</button>-->
+  <!--</div>-->
+</ion-content>
+<!--!isKeyboardOpen-->
+<ion-footer *ngIf="!isKeyboardOpen" class="button-footer">
+  <button class="proceed-button" ion-button round block color="primary" (click)="submit()" [disabled]="complaint === ''">
+    <div>
+      <p> {{ 'Send report' | translate }}</p>
+    </div>
+  </button>
+</ion-footer>

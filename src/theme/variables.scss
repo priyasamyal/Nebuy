@@ -1,0 +1,179 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/v2/theming/
+
+$font-path: "../assets/fonts";
+// $fa-font-path: "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+// @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+// @import url(http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css);
+
+@import "ionic.globals";
+
+
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+
+
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$text-color: #020202;
+$background-color:	#fafafa;
+$loading-ios-background: rgba(0,0,0,0);
+$loading-md-background:	rgba(0,0,0,0);
+$loading-md-box-shadow-color:rgba(0,0,0,0);
+$badge-font-size: 0.5rem;
+$badge-font-weight: 400;
+$icon-font-family: 'nebuy-app';
+
+
+//.platform-ios .bigbutton{
+// height:80px;
+//}
+
+//.platform-android .bigbutton{
+//  height:80px;
+//}
+//
+//.ai-neworder:before, .ion-ios-ai-neworder:before, .ion-ios-ai-neworder-outline:before {
+//    font-size: 38px !important;
+//}
+//
+//.ai-neworder, .ion-ios-ai-neworder, .ion-ios-ai-neworder-outline {
+//
+//  height: 100% !important;
+//
+//}
+//
+//
+//.ai-neworder:before,.ion-md-ai-neworder:before, .ion-md-ai-neworder-outline:before {
+//    font-size: 38px !important;
+//
+//}
+//
+//.ai-neworder, .ion-md-ai-neworder, .ion-md-ai-neworder-outline {
+//
+//  height: 100% !important;
+//  padding-top: 3px;
+//
+//}
+
+
+
+.ion-ios-pluscustom,
+.ion-md-pluscustom {
+  content: url(../assets/img/plus.png);
+  width: 60%;
+      height: 1% !important;
+  background-color: rgba(0,0,0,0) !important;
+  // width: 12%;
+  // height: 1%;
+  //width: 24px;
+  //height: 32px;
+  //padding: 6px 4px 2px;
+  //opacity: 0.9;
+}
+
+.ion-ios-pluscustom-outline,
+.ion-md-pluscustom-outline {
+  content: url(../assets/img/plus.png);
+  width: 60%;
+      height: 1% !important;
+    background-color: rgba(0,0,0,0) !important;
+  // width: 12%;
+  // height: 1%;
+  //width: 24px;
+  //height: 32px;
+  //padding: 6px 4px 2px;
+  //opacity: 0.9;
+}
+
+
+
+$colors: (
+  primary:   #FF957F,
+  primary-light:rgba(255,255,255,1),
+  primary-dark:     #616161,
+  tab-light: rgba(255,255,255,1),
+  white: #fff,
+  light-grey: #ccc,
+  star-color: rgb(239,193,48),
+  button:     #020202,
+  secondary:  #299555,
+  danger:     #da5a5a,
+  light:      #fafafa,
+  dark:       #020202,
+  fb:         #3b5998,
+  delivered: #3583ea,
+  google:     #da4e3d,
+  twitter:    #31cbfd,
+  background: #FF957F,
+  form:       rgba(0,0,0,0.0),
+  blueapp: #029ff9,
+  grey: #616161
+);
+
+
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+$tabs-ios-tab-color-active: map_get($colors, dark);
+$tabs-ios-tab-color: lighten(map_get($colors, grey), 20%);
+$tabs-ios-tab-icon-color: lighten(map_get($colors, grey), 20%);
+$tabs-ios-tab-icon-color-active: map_get($colors, dark);
+$popover-ios-width: 90%;
+
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+$text-input-md-show-focus-highlight: false;
+$tabs-md-tab-color-active: map_get($colors, dark);
+$tabs-md-tab-color: lighten(map_get($colors, grey), 20%);
+$tabs-md-tab-icon-color: lighten(map_get($colors, grey), 20%);
+$tabs-md-tab-icon-color-active: map_get($colors, dark);
+
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/v2/ionicons/
+
+// In order to make custom icons work and not break ionic icons, change ionic.ionicons to ionicons
+ //@import "ionic.ionicons";
+$ionicons-font-path: "../assets/fonts";
+@import "ionicons";
+
+
+//@import "roboto";
+//@import "noto-sans";
+
+@import "mixins","typography","icons","general";
+

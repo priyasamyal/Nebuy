@@ -1,0 +1,46 @@
+<!--<ion-header>-->
+
+  <!--<ion-navbar>-->
+    <!--<ion-title>enter-username</ion-title>-->
+  <!--</ion-navbar>-->
+
+<!--</ion-header>-->
+
+
+<ion-content padding>
+  <form #form="ngForm" (submit)="register(form)">
+    <ion-list>
+      <div class="logo-container">
+        <img class="logo" src="./assets/img/logo-reverse.png">
+      </div>
+      <p text-center="" style="font-size: 1.8rem;">{{ 'Thank you' | translate }}<br>{{ 'You can now choose your' | translate }}<br>{{ 'username' | translate }}</p>
+      <ion-item class="underlined-field width-70" no-lines="">
+        <ion-input
+          name="username"
+          [(ngModel)]="username"
+          #usernameField="ngModel"
+          placeholder="{{ 'username' | translate }}"
+          required></ion-input>
+      </ion-item>
+
+      <div *ngIf="(form.submitted || usernameField.dirty) && usernameField.invalid">
+        <p class="error" *ngIf="usernameField.errors.required" text-center>{{ 'Please enter a username' | translate }}</p>
+      </div>
+
+      <ion-item class="underlined-field width-70" no-lines="">
+        <ion-input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          #passwordField="ngModel"
+          required
+          placeholder="{{ 'password' | translate }}"></ion-input>
+      </ion-item>
+      <div *ngIf="(form.submitted || passwordField.dirty) && passwordField.invalid">
+        <p class="error" *ngIf="passwordField.errors.required" text-center>{{'Please enter a valid password' | translate}}</p>
+      </div>
+
+      <button class="submit-button" ion-button="" round block color="primary">{{ 'Register' | translate }}</button>
+    </ion-list>
+  </form>
+</ion-content>

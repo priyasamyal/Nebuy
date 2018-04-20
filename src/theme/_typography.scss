@@ -1,0 +1,47 @@
+
+$font-path: '../assets/fonts/montserrat/';
+@font-face {
+  font-family: 'Montserrat';
+  src: url('#{$font-path}Montserrat-Regular.eot');
+  src: url('#{$font-path}Montserrat-Regular.eot?#iefix') format('embedded-opentype'),
+  url('#{$font-path}Montserrat-Regular.woff2') format('woff2'),
+  url('#{$font-path}Montserrat-Regular.woff') format('woff'),
+  url('#{$font-path}Montserrat-Regular.ttf') format('truetype'),
+  url('#{$font-path}Montserrat-Regular.svg#Montserrat-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('#{$font-path}Montserrat-Medium.eot');
+  src: url('#{$font-path}Montserrat-Medium.eot?#iefix') format('embedded-opentype'),
+  url('#{$font-path}Montserrat-Medium.woff2') format('woff2'),
+  url('#{$font-path}Montserrat-Medium.woff') format('woff'),
+  url('#{$font-path}Montserrat-Medium.ttf') format('truetype'),
+  url('#{$font-path}Montserrat-Medium.svg#Montserrat-Medium') format('svg');
+  font-weight: 500;
+  font-style: normal;
+}
+
+$font-family-base: 'Montserrat';
+$font-family-ios-base: 'Montserrat';
+$font-family-md-base: 'Montserrat';
+$font-family-wp-base: 'Montserrat';
+
+.error {
+  color: map_get($colors, danger);
+}
+
+.text-dark {
+  color: map_get($colors, dark) !important;
+}
+
+.text-bold {
+  font-weight: 500 !important;
+}
+
+.text-light {
+  color: lighten(map_get($colors, grey), 12%) !important;
+}

@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title align-title="center">
+      <ion-icon name="ai-heart-outline"></ion-icon>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+
+<ion-content padding-top="">
+  <div class="ratings-container">
+     <div no-margin no-padding>
+       <p><span>{{five}}</span> <span class="spanClass">
+        <rating style="padding:0px;margin:0px" [ngModel]="5" readOnly="true" max="5" emptyStarIconName="ai-star-outline" halfStarIconName="ai-star-half" starIconName="ai-star-fill" nullable="false"> </rating></span></p>
+       <p><span>{{four}}</span> <span class="spanClass" ><rating style="padding:0px;margin:0px" [ngModel]="4" readOnly="true" max="4" emptyStarIconName="ai-star-outline" halfStarIconName="ai-star-half" starIconName="ai-star-fill" nullable="false"> </rating></span></p>
+       <p><span>{{three}}</span> <span class="spanClass" ><rating style="padding:0px;margin:0px" [ngModel]="3" readOnly="true" max="3" emptyStarIconName="ai-star-outline" halfStarIconName="ai-star-half" starIconName="ai-star-fill" nullable="false"> </rating></span></p>
+       <p><span>{{two}}</span> <span class="spanClass"  ><rating style="padding:0px;margin:0px" [ngModel]="2" readOnly="true" max="2" emptyStarIconName="ai-star-outline" halfStarIconName="ai-star-half" starIconName="ai-star-fill" nullable="false"> </rating></span></p>
+       <p><span>{{one}}</span> <span class="spanClass" ><rating style="padding:0px;margin:0px" [ngModel]="1" readOnly="true" max="1" emptyStarIconName="ai-star-outline" halfStarIconName="ai-star-half" starIconName="ai-star-fill" nullable="false"> </rating></span></p>
+     </div>
+  </div>
+
+  <ion-list no-lines="">
+    <ion-item *ngFor="let review of userReviews$ | async" align-items-start="">
+      <ion-avatar item-start="">
+        <img [src]="review.profile_photo" onError="this.src='./assets/img/demo.png'">
+      </ion-avatar>
+      <h2>{{review.name}}</h2>
+      <p>
+        <rating
+          [ngModel]="review.rating"
+          readOnly="true"
+          max={{review.rating}}
+          emptyStarIconName="ai-star-outline"
+          halfStarIconName="ai-star-half"
+          starIconName="ai-star-fill"
+          nullable="false">
+        </rating>
+      </p>
+      <!--<ion-row>-->
+        <!--<div>-->
+           <!--<p    style="color:#000000;margin-top:3px; font-size:22px;"> <span class="spanClass"> <img  *ngIf="review.profile_photo" src="{{ review.profile_photo}}"  width="40px !important" height="40px !important" style="background-repeat: no-repeat;background-position: 50%; border-radius: 50%;" #myImage (click)="presentImage(myImage)"  imageViewer/>  </span> {{review.name}}</p>-->
+        <!--</div>-->
+        <!--</ion-row   >-->
+          <!--<div *ngIf="review.rating>0" text-center no-margin no-padding>-->
+          <!--<rating style="padding:0px;margin-top:0px;margin-bottom:0px" [ngModel]="review.rating" readOnly="true" max={{review.rating}} emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"-->
+            <!--nullable="false">-->
+          <!--</rating>-->
+          <!--</div>-->
+
+
+      <!-- <ion-label>{{review?.review}}</ion-label> -->
+      <p> {{review?.review}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

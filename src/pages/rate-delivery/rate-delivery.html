@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button icon-only="" ion-button
+        (click)="navCtrl.pop();">
+        <ion-icon name="ion-custom-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>
+      <ion-icon name="ai-star-outline"></ion-icon>
+       <!--{{ 'Rate Delivery' | translate }}-->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content text-center padding>
+  <div style="padding-top: calc(30% - 11px);background-color:transparent">
+    <div style="background-color:transparent" *ngIf="ratingFrom == 'seller'">
+      <p class="font-24"> {{ 'Rate' | translate }} {{buyerName?.$value}}</p>
+    </div>
+    <div style="background-color:transparent" *ngIf="ratingFrom == 'buyer'">
+      <p class="font-24"> {{ 'Rate' | translate }} {{name}}</p>
+    </div>
+    <div>
+      <rating
+        [(ngModel)]="rate"
+        readOnly="false"
+        max="5"
+        emptyStarIconName="ai-star-outline"
+        halfStarIconName="ai-star-half"
+        starIconName="ai-star-fill"
+        nullable="false" (ngModelChange)="onModelChange($event)">
+      </rating>
+      <ion-item no-lines class="outline-field">
+        <ion-textarea placeholder=" {{ 'Write a review' | translate }}" [(ngModel)]="review"></ion-textarea>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>
+<!--<ion-footer no-lines>-->
+  <!--<ion-grid no-lines class="no-padding">-->
+    <!--<ion-row>-->
+      <!--<ion-col width-50>-->
+        <!--<button color="button" ion-button block (click)="skip()"> {{ 'Skip' | translate }}</button>-->
+      <!--</ion-col>-->
+      <!--<ion-col width-50>-->
+        <!--<button color="primary" ion-button block (click)="confirm()"> {{ 'Confirm' | translate }}</button>-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+  <!--</ion-grid>-->
+<!--</ion-footer>-->
+
+<ion-footer class="button-footer">
+  <button class="proceed-button" icon-end="" ion-button round block color="primary" (click)="confirm()" [disabled]="rate <=0 || !review || review == ''">
+    <div>
+      <p>{{ 'Submit' | translate }}</p>
+    </div>
+  </button>
+</ion-footer>

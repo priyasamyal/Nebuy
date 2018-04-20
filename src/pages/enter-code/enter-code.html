@@ -1,0 +1,41 @@
+
+<ion-header>
+
+  <ion-navbar color="dark">
+    <ion-title>{{ 'Enter code' | translate }}</ion-title>
+    <ion-buttons end="">
+      <button ion-button="" icon-only="" (click)="close()">
+        <ion-icon name="ai-cancel-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="logo-container">
+    <img class="logo" src="./assets/img/logo-reverse.png">
+  </div>
+
+  <div class="form-container">
+    <form #form="ngForm">
+      <ion-list no-lines>
+        <ion-item style="background:none;" text-center="">
+          <p text-wrap="">{{'Please enter the 6 digit code you received' | translate}}</p>
+        </ion-item>
+        <!--<div class="no-border" *ngIf="!loginForm.controls.email.valid  && (loginForm.controls.email.dirty || submitAttempt)">-->
+        <!--<p class="error">{{ 'Please enter a valid email' | translate }}.</p>-->
+        <!--</div>-->
+
+        <!--<button class="code-btn" margin-vertical="" ion-button color="primary" outline round block (click)="getCode()"> {{ 'Get Code' | translate }}</button>-->
+
+        <ion-item class="underlined-field width-70 enter-code">
+          <ion-input type="tel" name="code" placeholder="code" [(ngModel)]="code" (ionChange)="codeChanged($event)"></ion-input>
+        </ion-item >
+      </ion-list>
+    </form>
+
+  </div>
+
+</ion-content>

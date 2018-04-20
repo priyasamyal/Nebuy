@@ -1,0 +1,244 @@
+<!--<ion-header>-->
+
+  <!--<ion-navbar class="align-center" color="dark">-->
+    <!--<ion-title style="font-size:20px;"> {{ "New order" | translate }}</ion-title>-->
+  <!--</ion-navbar>-->
+
+<!--</ion-header>-->
+
+
+<ion-content [ngClass]="{'location-list-open': autocompleteItems.length || deliveryAutocompleteItems.length}">
+  <!-- *ngIf="!deliveryAutocompleteItems.length" -->
+  <ng-container>
+    <div class="shop-search-container">
+      <div #map id="map"></div>
+      <!-- Shop search -->
+      <div class="location-search">
+        <button ion-button="" icon-only="" (click)="toggleShopLocationOptions()">
+          <ion-icon name="md-more" color="grey"></ion-icon>
+        </button>
+
+        <!-- Show select if user has saved address -->
+        <ion-item  *ngIf="showShopLocationOptions && addressList?.length" no-lines="">
+          <ion-select [selectOptions]="addressSelectOptions">
+            <ion-option *ngFor="let address of addressList" [value]="address" (ionSelect)="selectAddress($event)">{{ address.nickname }}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Show alert if user doesnt have saved address -->
+        <button *ngIf="showShopLocationOptions && !addressList?.length" ion-button="" icon-only="" (click)="addAddress()">
+          <ion-icon name="ai-book"></ion-icon>
+        </button>
+
+        <!--<button *ngIf="showShopLocationOptions" ion-button="" icon-only="" (click)="setCurrentLocation('shop')">-->
+          <!--<ion-icon name="ai-thislocation"></ion-icon>-->
+        <!--</button>-->
+        <ion-searchbar  class="location-search" no-padding (ionFocus)="removeError()" (ionClear)="onSearchCleared($event)" [(ngModel)]="autocomplete.query" (ionInput)="searchZone('shop')" placeholder=" {{ 'Enter shop name & city' | translate }}"> </ion-searchbar>
+      </div>
+
+      <p class="error" *ngIf="submitAttempt && (shopDetails.name == '' || shopDetails.formatted_address == '')"> {{ "Please select a shop" | translate }}</p>
+      <!-- end location search-->
+
+    </div>
+    <ng-container *ngIf="!autocompleteItems.length">
+      <!-- Shop details -->
+      <ion-grid padding-vertical="">
+        <ion-row class="location-decoration">
+          <!--<ion-col col-12 col-sm-12 col-md-6 col-lg-6>-->
+          <ion-col col-6>
+            <ion-card *ngIf="shopDetails.name">
+              <img *ngIf="!shopPicture" src="http://placehold.it/300x150" alt="no picture provided" />
+              <img *ngIf="shopPicture" src={{shopPicture}} [alt]="shopDetails.name">
+              <ion-card-content>
+                <p *ngIf="shopDetails.name">{{shopDetails.name}}</p>
+              </ion-card-content>
+
+              <!--<div *ngIf="shopDetails.name" class="card-title">{{shopDetails.name}}</div>-->
+              <!--<div *ngIf="!shopPicture" style="color:black" class="card-subtitle"> {{ "No Picture Provided" | translate }}</div>-->
+            </ion-card>
+          </ion-col>
+          <ion-col col-6 padding-horizontal="">
+            <div *ngIf="opening_hours">
+              <div text-center *ngIf="openNow" text-center style="margin-top:6px; font-size:18px; padding-top:06px;margin-bottom:5px; color: #219653;"> {{ "OPEN NOW" | translate }}</div>
+              <div no-padding *ngIf="opening_hours && openNow" >
+                <div no-padding text-center style="margin:0px;" *ngIf="currentDay == 1">
+                  <p text-center class="font-20" style="margin:0px;margin-bottom: 5px; " >{{day[0]}}</p>
+                  <p text-center class="hourSize" style="margin:0px;" >{{hour[0]}}</p>
+                </div>
+                <div no-padding  text-center *ngIf="currentDay == 2">
+                  <p text-center class="font-20" style="margin:0px;margin-bottom: 5px;font-size:16px" >{{day[1]}}</p>
+                  <p text-center class="hourSize" style="margin:0px;" >{{hour[1]}}</p>
+                </div>
+                <div no-padding text-center *ngIf="currentDay == 3">
+                  <p text-center class="font-20" style="margin:0px;margin-bottom: 5px;font-size:16px" >{{day[2]}}</p>
+                  <p text-center class="hourSize" style="margin:0px;" >{{hour[2]}}</p>
+                </div>
+                <div no-padding text-center *ngIf="currentDay == 4">
+                  <p text-center class="font-20" style="margin:0px;margin-bottom: 5px;font-size:16px" >{{day[3]}}</p>
+                  <p text-center class="hourSize" style="margin:0px;" >{{hour[3]}}</p>
+                </div>
+                <div no-padding class="font-20" text-center *ngIf="currentDay == 5">
+                  <p text-center style="margin:0px;margin-bottom: 5px;font-size:16px" >{{day[4]}}</p>
+                  <p text-center class="hourSize" style="margin:0px;" >{{hour[4]}}</p>
+                </div>
+                <div no-padding text-center *ngIf="currentDay == 6">
+                  <p text-center class="font-20" style="margin:0px;margin-bottom: 5px;font-size:16px" >{{day[5]}}</p>
+                  <p text-center class="hourSize" style="margin:0px;" >{{hour[5]}}</p>
+                </div>
+                <div no-padding text-center *ngIf="currentDay == 0">
+                  <p text-center class="font-20" style="margin:0px;margin-bottom: 5px;font-size:16px" >{{day[6]}}</p>
+                  <p text-center class="hourSize" style="margin:0px;" >{{hour[6]}}</p>
+                </div>
+
+              </div>
+              <div *ngIf="opening_hours && searchAttempt">
+                <div *ngIf="!openNow" text-center margin> {{ "Closed" | translate }}</div>
+              </div>
+            </div>
+            <div *ngIf="!opening_hours && !openNow">
+              <p> {{ "Hours not available" | translate }}</p>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </ng-container>
+  </ng-container>
+
+
+  <!-- Shop location items -->
+  <ion-list no-lines text-wrap no-margin no-padding class="location-list-container" *ngIf="autocompleteItems?.length > 0">
+    <ion-item no-margin  *ngFor="let item of autocompleteItems"
+              (click)="chooseItem(item, 'shop')">
+      <h2>{{item.name}}</h2>
+      <p>{{item.formatted_address}}</p>
+      <ion-icon name="ai-location-outline" item-start=""></ion-icon>
+    </ion-item>
+  </ion-list>
+
+
+
+    <!-- Deliver address search -->
+    <!--<div #map id="delivery-map"></div>-->
+    <div class="location-search">
+      <button ion-button="" icon-only=""  (click)="toggleDeliveryLocationOptions()">
+        <ion-icon name="md-more" color="grey"></ion-icon>
+      </button>
+
+      <!-- Show select if user has saved address -->
+      <ion-item *ngIf="showDeliveryLocationOptions && addressList?.length" no-lines="">
+        <ion-select [selectOptions]="addressSelectOptions">
+          <ion-option *ngFor="let address of addressList" [value]="address" (ionSelect)="selectDeliveryAddress($event)">{{ address.nickname }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Show alert if user doesnt have saved address -->
+      <button *ngIf="showDeliveryLocationOptions && !addressList?.length" ion-button="" icon-only="" (click)="addAddress()">
+        <ion-icon name="ai-book"></ion-icon>
+      </button>
+
+      <button *ngIf="showDeliveryLocationOptions" ion-button="" icon-only="" (click)="setCurrentLocation('delivery')">
+        <ion-icon name="ai-thislocation"></ion-icon>
+      </button>
+      <ion-searchbar class="location-search" no-padding (ionFocus)="removeError('delivery')" [(ngModel)]="autocomplete.delivery" (ionInput)="searchZone('delivery')" placeholder="{{ 'Enter delivery address' | translate }}"  (ionClear)="onSearchCleared($event, 'delivery')"> </ion-searchbar>
+    </div>
+
+    <p class="error" *ngIf="submitAttempt && (shopDetails.name == '' || shopDetails.formatted_address == '')"> {{ 'Please select a drop off address' | translate }}</p>
+    <!-- end location search-->
+
+  <!-- Delivery location items -->
+  <ion-list no-lines text-wrap no-margin no-padding class="location-list-container delivery-list " *ngIf="deliveryAutocompleteItems?.length > 0 && autocompleteItems?.length == 0">
+    <ion-item no-margin  *ngFor="let item of deliveryAutocompleteItems"
+              (click)="chooseItem(item, 'delivery')">
+      <h2>{{item.name}}</h2>
+      <p>{{item.formatted_address}}</p>
+      <ion-icon name="ai-location-outline" item-start=""></ion-icon>
+    </ion-item>
+  </ion-list>
+
+
+    <!-- Choose delivery date -->
+    <ng-container *ngIf="!deliveryAutocompleteItems.length">
+      <form [formGroup]="orderForm">
+        <div class="date-time-container" padding-horizontal="">
+          <ion-grid>
+            <ion-row align-items-end="">
+              <ion-col>
+                <p no-padding no-margin text-center>{{ 'From' | translate }}:</p>
+                <!--(click)="startDate()" *ngIf="startDay == ''"-->
+                <ion-item no-lines text-center class="underlined-field order-date-time">
+                  <ion-label no-padding no-margin>
+                    {{startDay}}<br>{{StartTime}}
+                  </ion-label>
+                  <ion-datetime no-lines id="from" no-padding dayShortNames="Monday,Tuesday,Wednes,Thursd,Friday,Saturd Sunday"  min="{{current}}" max={{later}} pickerFormat="YYYY,MMM,DD,HH,mm" (ionChange)="hello($event)" [(ngModel)]="one" cancelText=""   formControlName="betweenTimeOne" [pickerOptions]="{cssClass: 'custom-date-picker'}"></ion-datetime>
+                </ion-item>
+              </ion-col>
+
+              <ion-col text-center>
+                <ion-icon name="ai-time"></ion-icon>
+              </ion-col>
+
+              <ion-col>
+                <p no-padding no-margin text-center>{{ 'To' | translate }}:</p>
+                <!--(click)="endDate()" *ngIf="endDay == ''"-->
+                <ion-item no-lines text-center class="underlined-field order-date-time">
+                  <ion-label no-padding no-margin>
+                    {{endDay}}<br>{{EndTime}}
+                  </ion-label>
+                  <ion-datetime no-lines id="to" cancelText=""  no-padding dayShortNames="Monday,Tuesday, Wednes,Thursd,Friday,Saturd Sunday"  min={{startTime}} max={{endTime}} pickerFormat="YYYY,MMM,DD,HH,mm"  [(ngModel)]="two" (ionChange)="hello2($event)"   formControlName="betweenTimeTwo" [pickerOptions]="{cssClass: 'custom-date-picker'}"></ion-datetime>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <p no-padding no-margin text-center>
+            <span>{{ 'Delivery Time' | translate }}</span>
+            <button
+              ion-button=""
+              clear
+              icon-only=""
+              tooltip="{{ 'Delivery time tooltip' | translate }}"
+              duration="4000"
+              positionV="top" arrow
+              class="info-button">
+              <ion-icon color="primary" name="ios-information-circle-outline"></ion-icon>
+            </button>
+          </p>
+        </div>
+
+
+        <ion-item class="underlined-field reward-field" text-center="">
+          <ion-label>
+            <ion-icon [name]="currencyIcon"></ion-icon>
+          </ion-label>
+          <ion-input formControlName="reward" placeholder="0" type="number" pattern="[0-9]*" decimal="true">
+          </ion-input>
+        </ion-item>
+        <!--<p class="font-18" style=";margin:0;margin-top:2px;text-align: center;color:#000000"> {{ 'Delivery reward' | translate }}</p>-->
+        <p no-padding no-margin text-center style="padding-top: 5px;">
+          <span>{{'Reward for delivery person' | translate}}</span>
+          <button
+            ion-button=""
+            clear
+            icon-only=""
+            tooltip="{{'Reward tooltip' | translate}}"
+            duration="4000"
+            positionV="top" arrow
+            positionH="right"
+            class="info-button">
+            <ion-icon color="primary" name="ios-information-circle-outline"></ion-icon>
+          </button>
+        </p>
+      </form>
+
+    </ng-container>
+</ion-content>
+<!--!isKeyboardOpen *ngIf="!hideFooter" -->
+ <ion-footer class="button-footer" [ngClass]="{'location-list-open': autocompleteItems.length || deliveryAutocompleteItems.length}">
+   <!--  TODO: [disabled]="!(shopSelected && deliveryAddressSelected && dateSelected)" -->
+    <button class="proceed-button" icon-end="" ion-button round block color="primary" (click)="addProducts()" [disabled]="!(shopSelected && deliveryAddressSelected && dateSelected)">
+      <div>
+        <p>{{ "Start shopping" | translate }}</p>
+        <p>Add items to cart</p>
+      </div>
+      <ion-icon name="ai-cart"></ion-icon>
+    </button>
+ </ion-footer>

@@ -1,0 +1,109 @@
+<ion-header>
+
+  <ion-navbar hideBackButton>
+    <ion-buttons left>
+      <button ion-button (click)="dismiss()">
+        <span color="light" > {{ 'Cancel' | translate }}</span>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button color="button" style="text-transform:initial" (click)="saveChanges()">
+         {{ 'Save changes' | translate }}
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-item-group margin-bottom="">
+    <ion-item-divider text-center> {{ 'Reward' | translate }}</ion-item-divider>
+    <ion-item class="underlined-field field-dark width-70" style="margin: 0 auto;">
+      <ion-input no-lines [(ngModel)]="reward" type="number" pattern="[0-9]*" decimal="true"></ion-input>
+    </ion-item>
+  </ion-item-group>
+  <ion-item-group>
+    <ion-item-divider text-center>{{ 'Delivery Time' | translate }}</ion-item-divider>
+    <form [formGroup]="orderForm">
+        <ion-grid>
+          <ion-row align-items-end="">
+            <ion-col>
+              <p no-padding no-margin text-center>{{ 'From' | translate }}:</p>
+              <!--(click)="startDate()" *ngIf="startDay == ''"-->
+              <ion-item no-lines text-center class="underlined-field field-dark order-date-time">
+                <ion-label no-padding no-margin>{{startDay}}<br>{{StartTime}}</ion-label>
+                <ion-datetime no-lines no-padding dayShortNames="Monday,Tuesday,Wednes,Thursd,Friday,Saturd Sunday"  min="{{current}}" max={{later}} pickerFormat="YYYY,MMM,DD,HH,mm" (ionChange)="hello($event)" [(ngModel)]="one" cancelText=""   formControlName="betweenTimeone" [pickerOptions]="{cssClass: 'custom-date-picker'}"></ion-datetime>
+              </ion-item>
+            </ion-col>
+
+            <ion-col text-center>
+              <ion-icon name="ai-time"></ion-icon>
+            </ion-col>
+
+            <ion-col>
+              <p no-padding no-margin text-center>{{ 'To' | translate }}:</p>
+              <!--(click)="endDate()" *ngIf="endDay == ''"-->
+              <ion-item no-lines text-center class="underlined-field field-dark order-date-time">
+                <ion-label no-padding no-margin> {{endDay}}<br>{{EndTime}}</ion-label>
+                <ion-datetime no-lines cancelText=""  no-padding dayShortNames="Monday,Tuesday, Wednes,Thursd,Friday,Saturd Sunday"  min={{startTime}} max={{endTime}} pickerFormat="YYYY,MMM,DD,HH,mm"  [(ngModel)]="two" (ionChange)="hello2($event)"   formControlName="betweenTimetwo" [pickerOptions]="{cssClass: 'custom-date-picker'}"></ion-datetime>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </form>
+  </ion-item-group>
+
+  <ion-item-group *ngFor="let product of products; let i = index" margin-bottom="">
+    <ion-item-divider text-center>{{ 'Product' | translate }} {{i + 1}}</ion-item-divider>
+    <ion-item no-lines class="product-field">
+      <ion-label fixed> {{ 'Name' | translate }}</ion-label>
+      <ion-input class="underlined-field field-dark" no-lines value="{{product.name}}" [(ngModel)]="product.name"></ion-input>
+    </ion-item>
+    <ion-item no-lines class="product-field">
+      <ion-label fixed> {{ 'Cost' | translate }}</ion-label>
+      <ion-input no-lines type="number" pattern="[0-9]*" decimal="true" value="{{product.cost}}"  class="underlined-field field-dark" [(ngModel)]="product.cost"></ion-input>
+    </ion-item>
+  </ion-item-group>
+
+
+
+  <!--<ion-list>-->
+
+
+    <!--<ion-list-header text-center style="background-color:transparent;color:#000000;font-weight:bold;">-->
+       <!--{{ 'Delivery Time' | translate }}-->
+    <!--</ion-list-header>-->
+     <!--<form style="background: transparent" color="form" [formGroup]="orderForm">-->
+
+    <!--<ion-item *ngIf="one" >-->
+      <!--<ion-label fixed> {{ 'From' | translate }}</ion-label>-->
+
+            <!--<ion-datetime  no-lines displayFormat="DDDD, HH:mm" no-lines  id="from" no-padding   min="{{current}}" max="{{later}}" [(ngModel)]="one" style="no-margin; background-color:transparent;color:#000000;width: 100%;"  pickerFormat="YYYY,MMM,DD,HH,mm" (ionChange)="hello()"  cancelText=""     formControlName="betweenTimeone"></ion-datetime>-->
+
+    <!--</ion-item>-->
+    <!--<ion-item  *ngIf="two" >-->
+      <!--<ion-label fixed> {{ 'To' | translate }} </ion-label>-->
+
+            <!--<ion-datetime   no-lines  displayFormat="DDDD, HH:mm" no-lines style="width: 100%; text-align: center" id="to" cancelText=""  no-padding   min="{{startTime}}" max="{{endTime}}"  pickerFormat="YYYY,MMM,DD,HH,mm" [(ngModel)]="two" (ionChange)="hello2()"  style="no-margin; background-color:transparent;color:#000000"  formControlName="betweenTimetwo" ></ion-datetime>-->
+    <!--</ion-item>-->
+
+
+     <!--</form>-->
+
+    <!--<div *ngFor="let product of products; let i = index">-->
+      <!--<ion-list-header text-center style="background-color:transparent;color:#000000;font-weight:bold;">-->
+         <!--{{ 'Product' | translate }} {{i + 1}}-->
+      <!--</ion-list-header>-->
+      <!--<ion-item>-->
+        <!--<ion-label fixed> {{ 'Name' | translate }}</ion-label>-->
+        <!--<ion-input no-lines value="{{product.name}}" [(ngModel)]="product.name"></ion-input>-->
+      <!--</ion-item>-->
+      <!--<ion-item>-->
+        <!--<ion-label fixed> {{ 'Cost' | translate }}</ion-label>-->
+        <!--<ion-input no-lines type="number" value="{{product.cost}}" [(ngModel)]="product.cost"></ion-input>-->
+      <!--</ion-item>-->
+    <!--</div>-->
+  <!--</ion-list>-->
+</ion-content>

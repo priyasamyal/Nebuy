@@ -1,0 +1,36 @@
+.md, .ios {
+  page-my-deliveries {
+    .segment {
+      .segment-button {
+        &.segment-activated {
+          .icon[name="ai-delivery"]::before {
+            content: '\57';
+          }
+        }
+      }
+    }
+
+
+    .col.full-height {
+      padding: 0 5px !important;
+    }
+
+    .dialog1{
+
+      z-index: 10000000;
+      width: 97%;
+      max-height: 230px;
+      position: absolute;
+      overflow: hidden;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: #ffffff;
+      display:block;
+      clear: both;
+      margin: auto;
+      border-radius: 5px;
+    }
+  }
+}

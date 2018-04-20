@@ -1,0 +1,81 @@
+<ion-header no-padding>
+
+    <ion-navbar color="dark">
+
+        <ion-title align="center">
+            {{ 'Register' | translate }}
+        </ion-title>
+
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding="">
+    <ion-slides (ionSlideDidChange)="slideChanged()">
+        <ion-slide>
+            <form #mobileForm="ngForm" (submit)="getCode(mobileForm)">
+                <div class="logo-container">
+                    <img class="logo" src="./assets/img/logo-reverse.png">
+                </div>
+                <p>{{'To protect our community we must verify every user with their phone number' | translate}}</p>
+                <ion-row class="underlined-field width-70 country-code-input" no-padding="">
+                    <ion-col col-4 no-padding="">
+                        <ion-item style="background: none;" no-lines="">
+                            <button color="white" type="button" (click)="chooseCountryCode()" ion-button="" clear>{{ '+' + selectedCountry.code }}</button>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col no-padding="">
+                        <ion-item style="background: none;" no-lines="">
+                            <ion-input type="tel" [countryCode]="selectedCountry.code" name="mobile" #mobileField="ngModel" [(ngModel)]="mobile" validateMobile required="" placeholder="{{ 'mobile' | translate }}"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <div *ngIf="(mobileForm.submitted || mobileField.dirty) && mobileField.invalid">
+                    <p class="error" *ngIf="mobileField.errors.invalidNumber && !mobileField.errors.required" [translate]="'Please enter a valid number in'" [translateParams]="{'country': selectedCountry.name }"></p>
+                    <p class="error" *ngIf="mobileField.errors.required"> {{ 'Please enter a mobile number' | translate }}.</p>
+                </div>
+                <button ion-button="" class="submit-button" round outline block color="primary">{{ 'Get code' | translate }}</button>
+            </form>
+        </ion-slide>
+
+        <ion-slide>
+            <form #codeForm="ngForm" (submit)="verify(codeForm)">
+                <div class="logo-container">
+                    <img class="logo" src="./assets/img/logo-reverse.png">
+                </div>
+                <p>{{'To protect our community we must verify every user with their phone number' | translate}}</p>
+                <ion-item class="underlined-field width-70" no-lines="">
+                    <ion-input name="code" type="tel" [(ngModel)]="code" required="" #codeField="ngModel" maxlength="6" placeholder="{{ 'Enter PIN' | translate }}"></ion-input>
+                </ion-item>
+                <div *ngIf="(codeForm.submitted || codeForm.dirty) && codeField.invalid">
+                    <p class="error">{{'Enter code' | translate}}</p>
+                </div>
+                <button class="submit-button" ion-button="" round outline block color="primary">{{ 'Verify Code' | translate }}</button>
+            </form>
+        </ion-slide>
+
+        <!--<ion-slide>-->
+        <!--<div class="logo-container">-->
+        <!--<img class="logo" src="./assets/img/logo-reverse.png">-->
+        <!--</div>-->
+        <!--<p text-center="">Thank you<br>You can now choose your<br>username</p>-->
+        <!--<ion-item class="underlined-field width-70" no-lines="">-->
+        <!--<ion-input name="username" [(ngModel)]="username" placeholder="{{ 'username' | translate }}"></ion-input>-->
+        <!--</ion-item>-->
+        <!--<ion-item class="underlined-field width-70" no-lines="">-->
+        <!--<ion-input type="password" name="password" [(ngModel)]="password" placeholder="{{ 'password' | translate }}"></ion-input>-->
+        <!--</ion-item>-->
+        <!--<button ion-button="" round block color="primary" (click)="register()">{{ 'Register' | translate }}</button>-->
+        <!--</ion-slide>-->
+    </ion-slides>
+</ion-content>
+<!--<ion-footer>-->
+<!--<ion-toolbar text-wrap class="privacy" color="dark">-->
+<!--<p (click)="termsAndConditions()">{{ 'By clicking "Register" you agree to our' | translate }}-->
+<!--<span (click)="termsAndConditions()"> {{ 'Terms' | translate }}</span>  {{ 'and' | translate }}-->
+<!--<span (click)="privacyPolicy()"> {{ 'Privacy Policy' | translate }}</span>-->
+<!--</p>-->
+<!--</ion-toolbar>-->
+<!--</ion-footer>-->

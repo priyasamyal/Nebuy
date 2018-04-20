@@ -1,0 +1,329 @@
+page-order-dropoff {
+    // .img{
+    //     // background: -webkit-linear-gradient(#6cf, #09c);
+    //     background: #fafafa;
+    //     background-repeat: no-repeat;
+    //     background-attachment: fixed;
+    //     background-position: center; 
+    // }
+    // ion-card {
+    //     position: relative;
+    //     text-align: center;
+    // }
+
+
+
+  .USD, .EUR{
+        width: 64px; 
+        height: 64px; 
+        border-radius: 100%; 
+        border: 0.5px solid #029ff9;
+        margin: 0 auto; 
+        overflow: hidden;
+        background-color: #fff; 
+        text-align: center;
+        position: relative;
+        
+    }
+
+    .item-block {
+    margin: 0;
+    padding: 0;
+    text-align: initial;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    /* display: flex; */
+    /* overflow: hidden; */
+    /* -webkit-box-align: center; */
+    /* -webkit-align-items: center; */
+    -ms-flex-align: center;
+    /* align-items: center; */
+    /* -webkit-box-pack: justify; */
+    /* -webkit-justify-content: space-between; */
+    -ms-flex-pack: justify;
+    /* justify-content: space-between; */
+    width: 100%;
+    min-height: 0px;
+     border-bottom: none;
+    /* font-weight: normal; */
+    /* line-height: normal; */
+    /* text-decoration: none; */
+    /* color: inherit; */
+}
+
+    .USD:after{
+        position: absolute;
+        background: url('../assets/img/us-dollar.png') center center no-repeat; 
+        background-size: 58px; 
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        opacity: 0.2;
+        content: "";
+        z-index: 0;
+        background-color: #fff; 
+    }
+
+    .EUR:after{
+        position: absolute;
+        background: url('../assets/img/EUR.png') center center no-repeat; 
+        background-size: 45px; 
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 10px;
+        opacity: 0.2;
+        content: "";
+        z-index: 0;
+        background-color: #fff; 
+    }
+
+    .USD .text-input, .EUR .text-input{
+        text-align: center;
+        margin: 0 auto;
+        border-bottom: 1px solid #000000;
+        margin-top: 15px;
+            width: 70%;
+           
+    }
+
+    .searchbar-md .searchbar-input {
+    background: none;
+    font-size: 16px;
+    padding: 6px 40px 6px 30px;
+}
+
+.searchbar-ios .searchbar-input {
+    background: none;
+    font-size: 16px;
+    padding: 6px 40px 6px 3px;
+}
+
+.searchbar-md .searchbar-search-icon {
+        background-image: url('../assets/img/icons8-Search-64.png');
+        left: 0px;
+        top: 5px;
+        width: 23px;
+        height: 25px;
+        background-size: contain;
+    }
+
+    .popup-buttons .button{
+
+        color: #029FF9;
+    }
+
+ 
+.toolbar-md {
+    /* padding: 4px; */
+    min-height: 36px;
+    margin: 0px 0px 0px 0;
+    padding: 0;
+}
+.toolbar-ios {
+    /* padding: 4px; */
+    min-height: 36px;
+    margin: 0px 0px 0px 0;
+    padding: 0;
+}
+
+.ios ion-nav > .ion-page > ion-content.statusbar-padding:first-child .scroll-content{
+     padding-top: 0px !important;
+}
+
+
+ 
+
+    .searchbar-ios .searchbar-search-icon {
+        background-image: url('../assets/img/icons8-Search-64.png');
+        left: 2px;
+        top: 3px;
+        width: 23px;
+        height: 25px;
+        background-size: contain;
+    }
+
+    .currency-input .text-input{
+        text-align: center;
+        margin: 0 auto;
+        border-bottom: 0.5px solid #000000;
+        margin-top: 15px;
+            width: 70%;
+    }
+
+
+
+
+   .codeQR .btncode {
+   color: #029FF9;
+}
+
+
+.alert-ios .alert-button:last-child {
+    border-right: 0;
+    font-weight: bold;
+    color: #029FF9;
+}
+
+.alert-md .alert-button:last-child {
+    border-right: 0;
+    font-weight: bold;
+    color: #029FF9;
+}
+
+.alert-button:last-child {
+    border-right: 0;
+    font-weight: bold;
+    color: #029FF9;
+}
+
+.alert-ios .alert-button:first-child {
+    border-right: 0;
+    font-weight: bold;
+    color: #029FF9;
+}
+
+.alert-md .alert-button:first-child {
+    border-right: 0;
+    font-weight: bold;
+    color: #029FF9;
+}
+
+.popup-head {
+  background-color : blue;
+}
+
+.popup-body {
+  background-color : red;
+}
+
+.popup-buttons .button {
+
+    background-color: #4cd964;
+
+    font-size: 20px;
+
+}
+
+
+
+.datetime-ios {
+    padding: 0px 0px 0px 10px;
+}
+
+.datetime-md {
+    padding: 0px 0px 0px 10px;
+}
+
+.picker-md .picker-button, .picker-md .picker-button.activated {
+    margin: 0;
+    height: 44px;
+    color: #029ff9;
+    background: transparent;
+    box-shadow: none;
+}
+
+.picker-button, .picker-md .picker-button.activated {
+    margin: 0;
+    height: 44px;
+    color: #029ff9;
+    background: transparent;
+    box-shadow: none;
+}
+
+
+
+
+    .aline{
+      display: inline-block
+    }
+    .align{
+
+      float: left;
+      margin: 0px;
+      margin-left: 1px;
+      margin-top: 1px;
+
+      
+    }
+
+    .alin{
+
+      float: right;
+      margin: 0px;
+      margin-left: 1px;
+      margin-top: 1px;
+      
+    }
+
+    .toolbar-title-ios .toolbar-title-md {
+    text-align: center;
+    font-size: inherit;
+    font-weight: 600;
+    color: #029ff9;
+    pointer-events: auto;
+
+    }
+
+    .scroll-content {
+        margin-top: 50px !important;
+        margin-bottom: 50 !important;
+    }
+    .separator{
+        background-color: #333333;
+        height: 1px;
+        width: 100%;
+    }
+.add-list {
+        max-height: 150px;
+        overflow: scroll;
+    }
+
+     .add-list-container {
+        position: absolute;
+        padding: 0 16px;
+        width: 100%;
+        left: 0;
+        z-index: 1000;
+    }
+
+.header-md::after, .tabs-md[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+    left: 0;
+    bottom: -5px;
+    background-position: left 0 top -2px;
+    position: absolute;
+    width: 100%;
+    height: 0px;
+    background-image: null;
+      background-repeat: repeat-x;
+    content: "";
+}
+
+  .card-title {
+    position: absolute;
+    bottom:35px;
+    font-size: 18px;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .card-subtitle {
+    font-size: 1.0em;
+    position: absolute;
+    bottom:15px;
+    width: 100%;
+    color: #fff;
+  }
+  .item-ios.item-block, .item-inner {
+    padding-right: 8px;
+    border-bottom: 0;
+    }
+  .selected {
+        color: #7faaf8 !important;
+        // background-color: #7faaf8;
+    }
+
+}

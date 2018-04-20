@@ -1,0 +1,90 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title> {{ 'Shopping List' | translate }}</ion-title>
+    <ion-buttons end>
+      <button color="button" item-end ion-button (click)="proceed()">
+         {{ 'Done' | translate }}
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding [ngClass]="{'img-bg' : globals.backgroundImage=='one', 'img-bg2' : globals.backgroundImage=='two', 'img-bg3' : globals.backgroundImage=='three', 'img-bg4' : globals.backgroundImage=='four'}">
+  <form style="background: transparent" [formGroup]="orderForm">
+
+    <div formArrayName="products">
+      <div *ngFor="let product of orderForm.controls.products.controls; let i = index">
+        <div text-center>
+          <span ion-text text-center color="dark"> {{ 'Product' | translate }} {{i + 1}}</span>
+        </div>
+
+        <div [formGroupName]="i">
+
+          <ion-item style="color: #020202" color="form">
+            <ion-input type="text" placeholder=" {{ 'Describe Product' | translate }}" formControlName="product" [class.invalid]="!orderForm.controls.products.controls[i].controls.product.valid
+                 && (orderForm.controls.products.controls[i].controls.product.dirty || submitAttempt)"></ion-input>
+          </ion-item>
+          <div style="color: #020202" *ngIf="!orderForm.controls.products.controls[i].controls.product.valid
+             && (orderForm.controls.products.controls[i].controls.product.dirty || submitAttempt)">
+            <p style="color: #ea6153"> {{ 'Describe product & amount' | translate }}.</p>
+          </div>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-5>
+
+                <ion-item class="no-padding">
+                  <ion-label class="font-12"> {{ 'Cost' | translate }} &#8364;</ion-label>
+                  <ion-input type="number" formControlName="cost"
+                    [class.invalid]="!orderForm.controls.products.controls[i].controls.cost.valid && (orderForm.controls.products.controls[i].controls.cost.dirty || submitAttempt)"></ion-input>
+                </ion-item>
+
+                <div style="color: #020202" color="form" 
+                *ngIf="!orderForm.controls.products.controls[i].controls.cost.valid  && (orderForm.controls.products.controls[i].controls.cost.dirty || submitAttempt)">
+                  <p style="font-size:10px; color: #ea6153"> {{ 'Please enter the cost' | translate }}.</p>
+                </div>
+              </ion-col>
+              <ion-col col-7>
+                <div text-center>
+                  <button [disabled]="!orderForm.controls.products.controls[i].controls.product.valid" ion-button clear icon-right color="dark"
+                    (click)="openCamera(orderForm.controls.products.controls[i].controls.images, i)"><ion-icon style="font-size: 28px" name="camera"></ion-icon></button>
+                  <button [disabled]="!orderForm.controls.products.controls[i].controls.product.valid" ion-button clear icon-right color="dark"
+                    (click)="pickImage(orderForm.controls.products.controls[i].controls.images, i)"><ion-icon style="font-size: 28px" name="image"></ion-icon></button>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+
+        </div>
+        <br>
+      </div>
+    </div>
+    
+    <button ion-button color="button" (click)="addProduct()" block> {{ 'Add Products' | translate }}</button>
+    
+    <ion-list *ngIf="orderForm.value.products.length > 0">
+      <ion-item *ngFor="let image of orderForm.value.products; let j = index">  
+        {{j + 1}}. {{image.product}}
+        <ion-row nowrap>
+          <ion-avatar *ngFor="let i of image.images">
+            <img src="data:image/png;base64,{{i}}">
+          </ion-avatar>
+        </ion-row>
+        <ion-icon name="close" item-right (click)="removeProduct(j)"></ion-icon>
+      </ion-item>
+
+    </ion-list>
+
+
+
+  </form>
+
+</ion-content>
+<ion-footer>
+  <ion-item>
+    <ion-label> {{ 'Total estimated budget' | translate }}: &#8364;{{totalEstimate}}</ion-label>
+  </ion-item>
+</ion-footer>

@@ -1,0 +1,207 @@
+@charset "UTF-8";
+
+$font-path: '../assets/fonts/nebuy';
+$font-name: 'nebuy-app';
+@font-face {
+  font-family: #{$font-name};
+  src:url("#{$font-path}/#{$font-name}.eot");
+  src:url("#{$font-path}/#{$font-name}.eot?#iefix") format("embedded-opentype"),
+  url("#{$font-path}/#{$font-name}.woff") format("woff"),
+  url("#{$font-path}/#{$font-name}.ttf") format("truetype"),
+  url("#{$font-path}/#{$font-name}.svg#nebuy-app") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+//[data-icon]:before {
+//  font-family: #{$font-name} !important;
+//  content: attr(data-icon);
+//  font-style: normal !important;
+//  font-weight: normal !important;
+//  font-variant: normal !important;
+//  text-transform: none !important;
+//  speak: none;
+//  line-height: 1;
+//  -webkit-font-smoothing: antialiased;
+//  -moz-osx-font-smoothing: grayscale;
+//}
+//
+//[class^="icon-"]:before,
+//[class*=" icon-"]:before {
+//  font-family: #{$font-name} !important;
+//  font-style: normal !important;
+//  font-weight: normal !important;
+//  font-variant: normal !important;
+//  text-transform: none !important;
+//  speak: none;
+//  line-height: 1;
+//  -webkit-font-smoothing: antialiased;
+//  -moz-osx-font-smoothing: grayscale;
+//}
+//
+//[class^="icon-"],
+//[class*=" icon-"],
+//[class^="ion-ios-icon"],
+//[class*="ion-ios-icon"],
+//[class^="ion-md-icon"],
+//[class*="ion-md-icon"]{
+//  @extend .ion;
+//  /* use !important to prevent issues with browser extensions that change fonts */
+//  font-family: 'icons' !important;
+//  speak: none;
+//  font-style: normal;
+//  font-weight: normal;
+//  font-variant: normal;
+//  text-transform: none;
+//  line-height: 1;
+//
+//  /* Better Font Rendering =========== */
+//  -webkit-font-smoothing: antialiased;
+//  -moz-osx-font-smoothing: grayscale;
+//}
+
+
+@mixin makeIcon($arg, $val, $font-size: 26px) {
+  .ai-#{$arg}:before ,
+  .ion-ios-ai-#{$arg}:before ,
+  .ion-ios-ai-#{$arg}-outline:before ,
+  .ion-md-ai-#{$arg}:before ,
+  .ion-md-ai-#{$arg}-outline:before  {
+    font-family: #{$font-name};
+    content: $val;
+    font-size: $font-size;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@mixin makeActiveIcon($arg, $val) {
+  .ai-#{$arg}[ng-reflect-is-active="true"]:before ,
+  .ion-ios-ai-#{$arg}[ng-reflect-is-active="true"]:before ,
+  .ion-ios-ai-#{$arg}-outline[ng-reflect-is-active="true"]:before ,
+  .ion-md-ai-#{$arg}[ng-reflect-is-active="true"]:before ,
+  .ion-md-ai-#{$arg}-outline[ng-reflect-is-active="true"]:before  {
+    font-family: #{$font-name};
+    content: $val;
+    font-size: 26px;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+
+ion-icon[name="ion-custom-back"]::before, ion-icon[ng-reflect-name="ion-custom-back"]::before {
+  font-family: #{$font-name};
+  content: "\6f";
+  font-size: 2.2rem;
+}
+
+
+@include makeIcon(delivery, '\58', 33px);
+@include makeIcon(orders, '\46');
+@include makeIcon(profile, '\5a');
+@include makeIcon(requests, '\44');
+@include makeIcon(neworder, '\6c');
+@include makeIcon(view, '\66');
+@include makeIcon(delete, '\69');
+//@include makeIcon(edit, '\6a');
+//@include makeIcon(report, '\6b');
+//@include makeIcon(cancel, '\6e');
+@include makeIcon(chat, '\6d');
+@include makeIcon(confirm, '\6f');
+
+
+@include makeIcon(book, '\4e');
+@include makeIcon(location, '\79');
+@include makeIcon(location-outline, '\43');
+@include makeIcon(cart, '\6c');
+@include makeIcon(cancel-circle, '\4f');
+@include makeIcon(remove, '\72');
+
+@include makeIcon(time, '\47');
+@include makeIcon(EUR, '\6e', 1.8rem);
+@include makeIcon(USD, '\69', 1.8rem);
+@include makeIcon(camera, '\75', 5rem);
+@include makeIcon(cart-plus, '\62', 2rem);
+@include makeIcon(gallery, '\68', 4.8rem);
+
+@include makeIcon(view, '\4b');
+@include makeIcon(delivering, '\4c');
+@include makeIcon(eye, '\4a');
+@include makeIcon(complain, '\71');
+@include makeIcon(star-outline, '\31');
+@include makeIcon(star-fill, '\30');
+@include makeIcon(star-half, '\32');
+@include makeIcon(cancel, '\4f');
+
+@include makeIcon(edit, '\66');
+@include makeIcon(delete, '\48');
+@include makeIcon(rate, '\49');
+@include makeIcon(activate, '\65');
+@include makeIcon(confirm, '\4d');
+@include makeIcon(message, '\64');
+@include makeIcon(chat, '\50');
+@include makeIcon(menu, '\42');
+@include makeIcon(menu-active, '\53');
+@include makeIcon(view-order, '\77');
+@include makeIcon(send, '\74');
+@include makeIcon(heart-outline, '\67');
+@include makeIcon(security, '\52');
+@include makeIcon(wallet, '\61');
+@include makeIcon(support, '\54');
+@include makeIcon(thislocation, '\6b');
+
+@include makeActiveIcon(message, '\63');
+@include makeActiveIcon(previous, '\30')
+@include makeActiveIcon(delivery, '\57');
+@include makeActiveIcon(orders, '\45');
+@include makeActiveIcon(profile, '\59');
+@include makeActiveIcon(requests, '\78');
+@include makeActiveIcon(neworder, '\55');
+@include makeActiveIcon(view, '\66');
+@include makeActiveIcon(delete, '\69');
+@include makeActiveIcon(edit, '\6a');
+@include makeActiveIcon(report, '\6b');
+@include makeActiveIcon(chat, '\6d');
+@include makeActiveIcon(confirm, '\6f');
+@include makeActiveIcon(message, '\63');
+
+
+.back-button.bar-button.show-back-button::after {
+  font-family: #{$font-name};
+  content: "\6f";
+  font-size: 2.2rem;
+  top: .5rem;
+}
+
+
+// Active tab buttons for prod build
+.tabs .tab-button[aria-selected="true"] {
+  .icon[aria-label*="requests"]::before {
+    content: '\78';
+  }
+  .icon[aria-label*="orders"]::before {
+    content: '\45';
+  }
+  .icon[aria-label*="profile"]::before {
+    content: '\59';
+  }
+  .icon[aria-label*="delivery"]::before {
+    content: '\57';
+  }
+
+  .icon[aria-label*="neworder"]::before {
+    content: '\55';
+  }
+}

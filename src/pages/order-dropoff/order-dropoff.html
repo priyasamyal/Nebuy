@@ -1,0 +1,176 @@
+<ion-header>
+
+  <ion-navbar hideBackButton class="bar-button-md align-center"color="white" style="border-style: solid;border-bottom: 0.5px solid #029ff9;text-transform:initial">
+    <ion-buttons left>
+      <button  style="font-size: 18px;text-transform:initial;" color="button" item-start ion-button
+        (click)="this.navCtrl.pop();">
+        <span style="padding-top: 2px;"><img class="manImg" class="size" src="assets/img/icons8-Chevron Left-64.png " width="18px" height="13px"/></span>
+         {{ 'Cart' | translate }}
+      </button>
+    </ion-buttons>
+
+    <ion-title align-title="center" style="text-align:center;">
+      <img class="manImg" src="assets/img/icons8-Target-64 2.png " width="30px" height="27px"/>
+    </ion-title>
+<ion-buttons right style="visibility: hidden;">
+      <button  style="font-size: 21px;" color="button" item-end ion-button
+        (click)="proceed()">Delivery
+    
+      </button>
+    </ion-buttons>
+    
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content [ngClass]="{'img-bg' : globals.backgroundImage=='one', 'img-bg2' : globals.backgroundImage=='two', 'img-bg3' : globals.backgroundImage=='three', 'img-bg4' : globals.backgroundImage=='four'}" >
+  <div #map id="map"></div>
+  <p class="font-16" style="margin-top:2px"  text-center> {{ 'Providing wrong information will result in block of your account' | translate }} </p>
+  <div style="margin-top:2%;margin-left:3px; margin-right:3px;">
+    <ion-searchbar no-padding style="height: 37px !important;font-size:20px;background-color:white; border:0.5px solid #029ff9; border-radius:3px; overflow:hidden;color:#000000 " (ionFocus)="removeError()" [(ngModel)]="autocomplete.query" (ionInput)="search()"
+      placeholder=" {{ 'Enter delivery address' | translate }}">
+
+    </ion-searchbar>
+   <p *ngIf="submitAttempt && (dropoffAddressDetails.name == '' || dropoffAddressDetails.formatted_address == '')" style="color: #ea6153;"> {{ 'Please select a drop off address' | translate }}</p>
+ 
+  </div>
+  <!--<ion-input [(ngModel)]="autocomplete.query" placeholder="search for dropoff address" (input)="search()" clearInput={{clearInput}}
+    clearOnEdit={{clearOnEdit}} style="color: #db4c14"></ion-input>-->
+ 
+  <div class="add-list-container">
+  <ion-list text-wrap no-margin no-padding class="add-list" *ngIf="autocompleteItems.length > 0">
+    <ion-item class="aboveMap" *ngFor="let item of autocompleteItems" (click)="chooseItem(item)">
+      {{ item.name + ' ' + item.formatted_address }}
+    </ion-item>
+  </ion-list>
+  </div>
+  <div>
+    <ion-grid>
+
+      <p no-padding no-margin text-center class="font-20" style="color: #000">-{{ 'or' | translate }}-</p>
+      <ion-row style="height:37 !important;" >
+        <!--<ion-col col-2></ion-col>-->
+<ion-col style="width: 7% !important; flex: none;"></ion-col>
+       
+        <ion-col style="width: 38% !important;  flex: none;">
+          <div class="aline" text-center (click)="setCurrentLocation()" style="background-color: white;height:45px !important;border:1px solid #7faaf8;border-radius:5px;width: 100%;">
+            <!--<button ion-button clear icon-right color="dark"><ion-icon style="padding-left:0px;font-size:20px; " name="locate"></ion-icon></button>-->
+            <img class="align" src="assets/img/icons8-Currency-64.png " width="30px" height="30px"  />
+            <p no-padding no-margin text-center style="padding: 2px;margin:1px;" class="font-14 ">{{ 'This' | translate }}<br>{{ 'location' | translate }}</p>
+          </div>
+        </ion-col>
+
+        <ion-col style="width: 15% !important; flex: none;"></ion-col>
+
+
+        <ion-col style="width: 40% !important; flex: none;">
+          <div class="aline" (click)="showRadio()" text-center style="background-color: white;height:45px !important;border:1px solid #7faaf8;;border-radius:5px; width: 100%;">
+            <!--<button ion-button clear icon-right color="dark"><ion-icon style="padding-left:0px;font-size:45px; "  name="arrow-dropdown"></ion-icon></button>-->
+           <img class="align" src="assets/img/icons8-Save as-64.png " width="30px" height="30px"  />
+            <p no-padding no-margin text-center style="padding: 2px;margin:1px; " class="font-14">{{ 'Saved' | translate }}<br>{{ 'Address' | translate }}</p>
+          </div>
+        </ion-col>
+
+        <ion-col style="width: 7% !important; flex: none;"></ion-col>
+
+        <!--<ion-col col-2></ion-col>-->
+      </ion-row>
+    </ion-grid>
+  </div>
+  <hr class="separator">
+   
+ 
+
+
+  <div>
+    <form style="background: transparent" color="form" [formGroup]="orderForm">
+
+      <form [formGroup]="deliveryTimeType" style="padding-top:1px;">
+    <ion-grid>
+      <p no-padding no-margin text-center class="font-18" style="color: #333333">{{ 'Delivery Time' | translate }}:</p>
+      <ion-row>
+
+        
+
+        <ion-col style="width: 42% !important; flex: none; background-color: white;border:0.5px solid #7faaf8;padding-bottom:3px; height:70px;border-radius:3px;width: 100%;">
+          <!--<div class="aline" text-center (click)="setCurrentLocation()" style="background-color: white;border:1px solid #7faaf8;padding-bottom:3px; height:45px;border-radius:5px;width: 100%;">
+            <p no-padding no-margin text-center style="padding-top: 2px;color:#828282" class="font-14 ">From:</p>
+          </div>-->
+
+          <p no-padding no-margin text-center style="margin:0; padding-top: 0.5px;color:#828282" class="font-16 ">{{ 'From' | translate }}:</p>
+
+          <ion-item no-lines id="my_dialog" class="aline" text-center  style="margin:0;width: 100%;text-align: center;margin:0; background-color:transparent;font-size:14px" color="form" [formGroup]="orderForm">
+            <ion-label no-padding no-margin style="color:#000000;font-size:18px" (click)="startDate()">{{startDay}}<br>{{StartTime}}</ion-label>
+             <ion-datetime *ngIf="startDay == ''" no-lines style="width: 100%; text-align: center" id="from" no-padding dayShortNames="Monday,Tuesday,Wednes,Thursd,Friday,Saturd Sunday"  min="{{current}}" max={{later}} style="no-margin; background-color:transparent;color:#000000"  pickerFormat="YYYY,MMM,DD,HH,mm" (ionChange)="hello()" [(ngModel)]="one" cancelText=""   formControlName="betweenTimeOne" ></ion-datetime>
+
+            <!--<ion-datetime no-padding class="font-12" displayFormat="DD, HH:mm" style="no-margin; background-color:transparent;color:#000000" pickerFormat="DDd, HH:mm"  formControlName="betweenTimeOne" ></ion-datetime>-->
+          </ion-item>
+        </ion-col>
+
+        <ion-col style="width: 16% !important; flex: none;" text-center>
+          <img src="assets/img/icons8-Time-64.png " width="32" height="32"  />
+        </ion-col>
+
+         <ion-col style="width: 42% !important; flex: none; background-color: white;border:0.5px solid #7faaf8;padding-bottom:3px; height:70px;border-radius:3px;width: 100%;">
+          <!--<div class="aline" text-center (click)="setCurrentLocation()" style="background-color: white;border:1px solid #7faaf8;padding-bottom:3px; height:45px;border-radius:5px;width: 100%;">
+            <p no-padding no-margin text-center style="padding-top: 2px;color:#828282" class="font-14 ">From:</p>
+          </div>-->
+
+          <p no-padding no-margin text-center style="margin:0; padding-top: 1px;color:#828282" class="font-16 ">{{ 'To' | translate }}:</p>
+
+          <ion-item no-lines class="aline" text-center  style="margin:0;width: 100%;text-align: center; background-color:transparent;font-size:14px" color="form" [formGroup]="orderForm">
+            <ion-label no-padding no-margin style="color:#000000;font-size:18px" (click)="endDate()"> {{endDay}}<br>{{EndTime}}</ion-label>
+            <ion-datetime  *ngIf="endDay == ''" no-lines style="width: 100%; text-align: center" id="to" cancelText=""  no-padding dayShortNames="Monday,Tuesday, Wednes,Thursd,Friday,Saturd Sunday"  min={{startTime}} max={{endTime}} style="no-margin; background-color:transparent;color:#000000" pickerFormat="YYYY,MMM,DD,HH,mm"  [(ngModel)]="two" (ionChange)="hello2()"   formControlName="betweenTimeTwo" ></ion-datetime>
+          </ion-item>
+        </ion-col>
+
+
+        <!--<ion-col style="width: 37% !important; flex: none;">
+         
+          <ion-item class="aline" text-center *ngIf="timeType == 'specificTime'" style="background-color: white;border:1px solid #7faaf8;padding-bottom:3px; height:45px;border-radius:5px;width: 100%;" color="form" [formGroup]="orderForm">
+            <ion-label no-padding no-margin text-center style="padding-top: 2px;color:#828282" class="font-14 ">To:</ion-label>
+            <ion-datetime displayFormat="MMM DD, HH:mm" pickerFormat="MMM DD, YY HH:mm" min="{{currentYear}}-{{currentMonth}}-{{currentDay}}T{{currentHours}}:{{currentMinutes}}"
+              formControlName="betweenTimeOne" ></ion-datetime>
+          </ion-item>
+        </ion-col>-->
+
+      </ion-row>
+    </ion-grid>
+    </form>
+  
+    <hr class="separator">
+
+   
+   
+    <!--<div [ngClass]="{'USD' : globals.currency == 'USD', 'EUR' : globals.currency == 'EUR'}" style="margin-top:15px;">
+            <ion-input [ngClass]="{'USD' : globals.currency == 'USD', 'EUR' : globals.currency == 'EUR'}" style="z-index: 2;margin:0;  font-size:20px; color:#000000" formControlName="reward" placeholder="0" [class.invalid]="!orderForm.controls.reward.valid && (orderForm.controls.reward.dirty || submitAttempt)" class="text-center" type="number"  clearOnEdit={{clearOnEdit}}></ion-input>
+          </div>-->
+
+           <div *ngIf="currency == 'USD'"   class="USD" style="margin-top:15px;">
+            <ion-input class="USD" style="z-index: 2;margin:0;  font-size:20px; color:#000000" type="number"  inputmode="numeric" pattern="[0-9]*" formControlName="reward" placeholder="0" [class.invalid]="!orderForm.controls.reward.valid && (orderForm.controls.reward.dirty || submitAttempt)" class="text-center" type="number"  clearOnEdit={{clearOnEdit}}></ion-input>
+          </div>
+   
+       
+          <div *ngIf="currency == 'EUR' "  class="EUR" style="margin-top:15px;">
+            <ion-input class="EUR" style="z-index: 2;margin:0;  font-size:20px; color:#000000" type="number"  inputmode="numeric" pattern="[0-9]*" formControlName="reward" placeholder="0" [class.invalid]="!orderForm.controls.reward.valid && (orderForm.controls.reward.dirty || submitAttempt)" class="text-center" type="number"  clearOnEdit={{clearOnEdit}}></ion-input>
+          </div>
+   
+     
+           <ion-item color="form" style="background-color:transparent" *ngIf="!orderForm.controls.reward.valid  && (orderForm.controls.reward.dirty || submitAttempt)">
+          <p style="color: #ea6153;background-color:transparent"> {{ 'Please enter delivery reward' | translate }}</p>
+        </ion-item>
+
+           </form>
+
+  </div>
+        <!--</ion-item>-->
+        <p class="font-18" style=";margin:0;margin-top:2px;text-align: center;color:#000000"> {{ 'Delivery reward' | translate }}</p>
+
+
+
+<ion-footer *ngIf="!isKeyboardOpen">
+  <div style="padding-left:10px;padding-right:10px;">
+    <button style="margin-bottom:3%;font-size: 18px;text-transform:initial;" ion-button color="button" (click)="addOrder()" block> {{ 'Place order' | translate }}</button>
+  </div>
+</ion-footer>

@@ -1,0 +1,107 @@
+<ion-header>
+ <ion-navbar></ion-navbar>
+</ion-header>
+
+<ion-content padding="">
+  <ion-list no-lines="">
+    <ion-item class="underlined-field field-dark product-desc">
+      <ion-label>{{1 + products.length}}.</ion-label>
+      <ion-input
+        type="text"
+        [(ngModel)]="productName"
+        placeholder=" {{ 'Describe item & amount' | translate }}">
+      </ion-input>
+    </ion-item>
+    <p *ngIf="nameNotEntered" class="error" text-center="">{{ 'Please enter name' | translate }}.</p>
+    <ion-item *ngIf="productImages.length > 0">
+      <ion-row nowrap>
+        <ion-avatar *ngFor="let image of productImages" margin-right="" class="product-avatar">
+          <img src="data:image/png;base64,{{image}}" imageViewer />
+        </ion-avatar>
+      </ion-row>
+    </ion-item>
+
+    <!-- Add price and photos-->
+    <ion-grid class="product-actions">
+      <ion-row nowrap>
+        <ion-col col-6 text-center="">
+          <ion-item class="underlined-field field-dark reward-field">
+            <ion-label>
+              <ion-icon [name]="currencyIcon"></ion-icon>
+            </ion-label>
+            <!-- inputmode="numeric" pattern="[0-9]*" -->
+            <ion-input  type="number" pattern="[0-9]*" decimal="true" [(ngModel)]="productCost" (ionFocus)="removeCost()" placeholder="0" clearOnEdit={{clearOnEdit}}></ion-input>
+          </ion-item>
+          <p no-padding no-margin text-center class="field-label">
+            <span>{{ 'Est. item price' | translate }}*</span>
+            <button
+              ion-button=""
+              clear
+              icon-only=""
+              tooltip="{{'To help delivery person estimate the budget' | translate}}"
+              duration="4000"
+              positionV="top" arrow
+              class="info-button">
+              <ion-icon color="primary" name="ios-information-circle-outline"></ion-icon>
+            </button>
+          </p>
+          <!--<p class="field-label">{{ 'Est. item price' | translate }}*</p>-->
+          <!--<p>{{ 'To help delivery person estimate the budget' | translate }}</p>-->
+          <p class="error" *ngIf="costNotEntered"> {{ 'Please enter cost' | translate }}.</p>
+        </ion-col>
+
+        <ion-col col-6 text-center="">
+          <button ion-button clear icon-only="" color="dark" (click)="choosePhoto(products.length)">
+            <ion-icon name="ai-camera"></ion-icon>
+          </button>
+          <p no-padding no-margin text-center class="field-label">
+            <span>{{ 'Item Photo' | translate }}*</span>
+            <button
+              ion-button=""
+              clear
+              icon-only=""
+              tooltip="{{'To help find item faster in shop' | translate}}"
+              duration="4000"
+              positionV="top" arrow
+              class="info-button">
+              <ion-icon color="primary" name="ios-information-circle-outline"></ion-icon>
+            </button>
+          </p>
+          <!--<p no-padding class="field-label"> {{ 'Item Photo' | translate }}</p>-->
+          <!--<p>{{'To help find item faster in shop' | translate}}</p>-->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <button ion-button round outline item-start="" class="bold-button" color="secondary" (click)="addProduct(productName, productCost, products.length)" block>
+      <ion-icon name="ai-cart-plus"></ion-icon>
+      {{ 'Add this item to cart' | translate }}
+    </button>
+
+    <!--<ion-label> {{ 'Total estimate cost' | translate }}: {{totalEstimate | currency:globals.currency:true}}</ion-label>-->
+    <!-- Products list -->
+    <ion-label text-center="" class="my-cart"> My cart: {{totalEstimate | currency:globals.currency:true}}</ion-label>
+    <ng-container *ngIf="products.length > 0">
+      <ion-item *ngFor="let image of products; let j = index">
+        <span class="list-number">{{j + 1}}.</span> {{image.name}}
+        <ion-row nowrap>
+          <ion-avatar style="margin-right:3px" *ngFor="let i of image.images">
+            <img src="data:image/png;base64,{{i}}" width="20px !important" height="20px !important" imageViewer />
+          </ion-avatar>
+        </ion-row>
+        <ion-icon name="ai-remove"  item-right (click)="removeProduct(j)"></ion-icon>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+
+</ion-content>
+  <!--!isKeyboardOpen-->
+  <ion-footer class="button-footer">
+    <button class="proceed-button" icon-end="" ion-button round block color="primary" (click)="addOrder()" [disabled]="!(products && products.length > 0)">
+      <div>
+        <p> {{ 'Place order' | translate }}</p>
+        <p>{{'Make request public' | translate}}</p>
+      </div>
+      <ion-icon name="ai-cart"></ion-icon>
+    </button>
+  </ion-footer>

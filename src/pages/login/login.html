@@ -1,0 +1,89 @@
+<ion-header no-padding>
+    <ion-navbar color="dark">
+        <ion-title align="center">
+            {{ 'Login' | translate }}
+        </ion-title>
+        <ion-buttons right style="visibility: hidden;">
+            <button style="font-size: 11px;" color="button" item-end ion-button>bac</button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+    <!--  class="vertical-flex-content" -->
+    <div>
+        <div class="logo-container">
+            <img class="logo" src="./assets/img/logo-reverse.png">
+        </div>
+        <div no-padding no-margin class="form-container">
+            <ion-segment [(ngModel)]="method" (ionChange)="createForm()" mode="md">
+                <ion-segment-button [value]="'mobile'">{{ 'mobile' | translate}}</ion-segment-button>
+                <ion-segment-button [value]="'username'">{{ 'username' | translate }}</ion-segment-button>
+            </ion-segment>
+
+            <ng-container [ngSwitch]="method">
+                <ng-container *ngSwitchCase="'username'">
+                    <form [formGroup]="loginForm" margin-bottom="">
+                        <ion-list no-lines="">
+                            <ion-item class="underlined-field">
+                                <ion-input formControlName="username" placeholder=" {{ 'username' | translate }}"></ion-input>
+                            </ion-item>
+                            <div class="no-border" *ngIf="!loginForm.controls.username.valid  && (loginForm.controls.username.dirty || submitAttempt)">
+                                <p class="error" text-center>{{ 'Please enter a username' | translate }}.</p>
+                            </div>
+
+                            <ion-item class="underlined-field">
+                                <ion-input formControlName="password" type="password" placeholder=" {{ 'Password' | translate }}"></ion-input>
+                            </ion-item>
+                            <div class="no-border" *ngIf="!loginForm.controls.password.valid  && (loginForm.controls.password.dirty || submitAttempt)">
+                                <p class="error" text-center> {{ 'Please enter a valid password' | translate }}.</p>
+                            </div>
+                        </ion-list>
+                        <button margin-bottom="" ion-button color="primary" round block (click)="login()" class="login-btn"> {{ 'Log In' | translate }}</button>
+                    </form>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'mobile'">
+                    <form [formGroup]="mobileLogin" margin-bottom="" #form="ngForm" (submit)="getCode()">
+                        <ion-list no-lines="">
+                            <ion-row class="underlined-field width-70 country-code-input" no-padding="">
+                                <ion-col col-4 no-padding="">
+                                    <ion-item style="background: none;" no-padding>
+                                        <button color="white" type="button" (click)="chooseCountryCode()" ion-button="" clear>{{ '+' + selectedCountry.code }}</button>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col no-padding="" text-left="">
+                                    <ion-item style="background: none;" no-lines="" no-padding>
+                                        <ion-input formControlName="mobile" type="tel" placeholder="{{ 'mobile' | translate}}"></ion-input>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                            <!--<ion-label color="white" (click)="chooseCountryCode()" style="pointer-events: unset;">{{ '+' + selectedCountry.code }}</ion-label>-->
+                            <div class="no-border" *ngIf="!mobileLogin.controls.mobile.valid  && (mobileLogin.controls.mobile.dirty || form.submitted)">
+                                <p *ngIf="mobileLogin.controls.mobile.hasError('required')" class="error" text-center=""> {{ 'Please enter a mobile number' | translate }}.</p>
+
+                                <p *ngIf="mobileLogin.controls.mobile.hasError('invalidNumber') && !mobileLogin.controls.mobile.hasError('required')" class="error" text-center="" [translate]="'Please enter a valid number in'" [translateParams]="{'country': selectedCountry.name }"></p>
+                            </div>
+                        </ion-list>
+                        <button margin-bottom="" type="submit" ion-button color="primary" round block class="login-btn"> {{ 'Login' | translate }}</button>
+
+                    </form>
+                </ng-container>
+            </ng-container>
+
+
+
+
+            <!--<button  margin-bottom="" ion-button  color="primary" block round outline (click)="fBLogin()">{{ 'Facebook login' | translate }}</button>-->
+
+        </div>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-toolbar color="dark">
+        <!--<p text-center no-padding no-margin (click)="resetPassword()">{{ 'Forgot Password' | translate }}?</p>-->
+        <p text-center no-padding no-margin (click)="goToSignup()"> {{ 'New User? Click here to register' | translate }}</p>
+    </ion-toolbar>
+</ion-footer>

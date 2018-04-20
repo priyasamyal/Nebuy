@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title align-title="center">
+      <ion-icon name="ai-book"></ion-icon>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <div #map id="map"></div>
+  <ion-list no-lines>
+    <ion-item text-center>
+      <p text-wrap="" margin-bottom="" ion-text color="grey"> {{ 'Save addresses for quicker access when placing new order' | translate }}</p>
+      <h2>{{ 'Address' | translate }}  {{(addressList | async)?.length + 1 }}</h2>
+    </ion-item>
+
+    <ion-searchbar class="location-search" no-padding (ionFocus)="removeError()" [(ngModel)]="autocomplete.query" (ionInput)="search()"
+                   placeholder=" {{ 'Enter address' | translate }}"></ion-searchbar>
+    <p *ngIf="submitAttempt">{{ 'Please enter a address to save' | translate }}</p>
+
+    <div no-lines text-wrap no-margin no-padding class="location-list-container" *ngIf="autocompleteItems?.length > 0">
+      <ion-item no-margin  *ngFor="let item of autocompleteItems"
+                (click)="chooseItem(item)">
+        <h2>{{item.name}}</h2>
+        <p>{{item.formatted_address}}</p>
+        <ion-icon name="ai-location-outline" item-start=""></ion-icon>
+      </ion-item>
+    </div>
+
+    <ion-item class="underlined-field field-dark width-70" style="margin: 0 auto 20%;">
+      <ion-input placeholder=" {{ 'Title for address' | translate }}" [(ngModel)]="nickname"></ion-input>
+    </ion-item>
+
+    <button ion-button (click)="addAddress()" block round color="primary"> {{ 'Save Address' | translate }}</button>
+
+    <ion-item *ngFor="let address of addressList | async; let j = index">
+      <span class="list-number">{{j + 1}}.</span> {{address.nickname}}
+      <ion-icon name="ai-remove" item-right (click)="removeAddress(j, address.$key)"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>
+
+

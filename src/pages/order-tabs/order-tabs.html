@@ -1,0 +1,13 @@
+<ion-tabs #orderTabs selectedIndex="2" tabsHideOnSubPages="true" id="tabs">
+ <ion-tab [root]="tab1Root" tabTitle="{{ 'Requests' | translate }} " tabIcon="ai-requests"></ion-tab>
+ <ion-tab [root]="tab2Root"  tabTitle=" {{ 'My order' | translate }}" tabIcon="ai-orders"
+ [tabBadge] = "globals.myOrdersNotifications > 0 ? globals.myOrdersNotifications : null" tabBadgeStyle="danger">
+   <!--globals.myOrdersNotifications > 0 ? globals.myOrdersNotifications : null-->
+ </ion-tab>
+ <ion-tab [root]="tab3Root" tabTitle="New" tabIcon="ai-neworder"></ion-tab>
+ <ion-tab  [root]="tab4Root" tabTitle=" {{ 'I Deliver' | translate }}" tabIcon="ai-delivery"
+   [tabBadge] = "globals.myDeliveriesNotifications>0 ? globals.myDeliveriesNotifications : null" tabBadgeStyle="danger">
+   <!--globals.myDeliveriesNotifications>0 ? globals.myDeliveriesNotifications : null-->
+ </ion-tab>
+ <ion-tab [root]="tab5Root" (ionSelect)="profileTab($event)" tabTitle=" {{ 'Me' | translate }}" tabIcon="ai-profile"></ion-tab>
+</ion-tabs>

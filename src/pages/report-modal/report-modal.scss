@@ -1,0 +1,18 @@
+.md, .ios {
+  page-report-modal {
+    .item {
+      .label {
+        white-space: normal;
+      }
+      .button {
+        height: auto;
+      }
+      [icon-only] ion-icon {
+        line-height: normal;
+        &::before {
+          font-size: 4rem;
+        }
+      }
+    }
+  }
+}

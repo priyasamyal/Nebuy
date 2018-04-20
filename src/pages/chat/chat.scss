@@ -1,0 +1,175 @@
+.md,
+.ios {
+    page-chat {
+        /* General CSS Setup */
+       
+        .chat-control {
+            @include flex();
+            .attach-button,
+            .send-button {
+                margin: 0;
+            }
+            .item-inner {
+                padding-right: 0;
+            }
+            .attach-button {
+                font-size: 2.6rem;
+                height: unset;
+                .icon {
+                    padding: 0 6px;
+                }
+            }
+            .send-button {
+                .icon::before {
+                    font-size: 3.6rem;
+                    position: relative;
+                    top: .2rem;
+                    right: 2px;
+                }
+            }
+            .item.chat-textare {
+                @include center();
+                textarea {
+                    height: 1.8rem;
+                    resize: none;
+                    overflow: hidden;
+                    min-height: 50px;
+                    max-height: 100px;
+                }
+                border: 1px solid map_get($colors, primary);
+                border-radius: 60px;
+                .text-input {
+                    margin: 0;
+                }
+                .item-button {
+                    height: 50px;
+                }
+            }
+        }
+        .footer {
+            padding: 4px;
+        }
+        ///* CSS talk bubble */
+        .input-cover {
+            position: static !important;
+        }
+        .talk-bubble {
+            margin: 10px 10px 0px 10px;
+            display: inline-block;
+            position: relative;
+            height: auto;
+            border-radius: 20px;
+            background-color: #DDDDDD;
+            color: black;
+            clear: both;
+            float: left;
+            max-width: 80%;
+        }
+        .talk-bubble-image {
+            margin: 10px 10px 0px 10px;
+            display: inline-block;
+            position: relative;
+            height: auto;
+            border-radius: 20px;
+            color: black;
+            clear: both;
+            float: left;
+            max-width: 80%;
+        }
+        .custom-dialog {
+            @include align-items(flex-end);
+            padding-bottom: 10%;
+            .dialog {
+                @include justify-content(center);
+            }
+            .dialog-content {
+                padding: 0;
+                .list {
+                    margin: 0;
+                }
+            }
+            .item {
+                background: none;
+                &:not(:last-child) {
+                    border-bottom: 1px solid lighten(map_get($colors, light-grey), 10%);
+                }
+            }
+            h2 {
+                font-weight: 400;
+            }
+            .icon::before {
+                font-size: 2rem;
+                color: map_get($colors, primary);
+            }
+        }
+        .talk-bubble-sender {
+            margin: 10px 10px 0px 10px;
+            display: inline-block;
+            position: relative;
+            height: auto;
+            background-color: #029FF9;
+            color: white;
+            border-radius: 20px;
+            float: right;
+            clear: both;
+            max-width: 80%;
+        }
+        .talk-bubble-sender-image {
+            margin: 10px 10px 0px 10px;
+            display: inline-block;
+            position: relative;
+            height: auto;
+            color: white;
+            border-radius: 20px;
+            float: right;
+            clear: both;
+            max-width: 80%;
+        }
+        .platform-ios textarea {
+            text-indent: -5px;
+        }
+        .border {
+            border: 8px solid #DDDDDD;
+        }
+        .round {
+            border-radius: 30px;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+        }
+        .bar-button-default {
+            background: url("assets/img/icons8-Chevron Left-64.png");
+        }
+        /* talk bubble contents */
+        .talktext {
+            padding-top: 0.5em;
+            padding-right: 0.7em;
+            padding-bottom: 0.5em;
+            padding-left: 0.7em;
+            line-height: 1em;
+        }
+        .talktext p {
+            /* remove webkit p margins */
+            -webkit-margin-before: 0em;
+            -webkit-margin-after: 0em;
+        }
+        .talktext img {
+            /* remove webkit p margins */
+            -webkit-margin-before: 0em;
+            -webkit-margin-after: 0em;
+        }
+        .right {
+            position: absolute;
+            top: 0;
+            bottom: 5px;
+            margin: auto;
+            right: 0px;
+        }
+        .left {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            left: 0px;
+        }
+    }
+}

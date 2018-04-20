@@ -1,0 +1,5 @@
+.md, .ios {
+  .background {
+    background: map_get($colors, background);
+  }
+}

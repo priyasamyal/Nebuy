@@ -1,0 +1,128 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title align-title="center">
+            {{globals.recipientName}}
+        </ion-title>
+        <ion-buttons right *ngIf="(messages | async)?.length > 0">
+            <button color="dark" icon-only="" ion-button (click)="deleteChat()">
+        <ion-icon name="ai-delete"></ion-icon>
+      </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <div *ngFor="let text of messages | async">
+        <div *ngIf="globals.current_userUID == text.message_sender" [ngClass]="(text.text) ? 'talk-bubble-sender' : 'talk-bubble-sender-image'">
+            <div class="talktext">
+                <p *ngIf="text.text">{{text.text}}</p>
+
+                <img *ngIf="text.image" class="sze" style="background-color:transparent;border-radius:20px" #myImage (click)="presentImage(myImage)" src="{{text.image}}" imageViewer />
+
+                <img *ngIf="text.address" class="sze" style="background-color:transparent;border-radius:20px" (click)="openAddress(text.lat,text.lng)" src="{{text.address}}" imageViewer/>
+            </div>
+        </div>
+
+        <div *ngIf="globals.current_userUID !== text.message_sender" [ngClass]="(text.text) ? 'talk-bubble' : 'talk-bubble-image'">
+            <div class="talktext">
+                <p *ngIf="text.text">{{text.text}}</p>
+
+
+                <img *ngIf="text.image" class="sze" style="background-color:transparent;border-radius:20px" #myImage (click)="presentImage(myImage)" src="{{text.image}}" imageViewer />
+
+                <img *ngIf="text.address" class="sze" style="background-color:transparent;border-radius:20px" (click)="openAddress(text.lat,text.lng)" src="{{text.address}}" imageViewer/>
+            </div>
+        </div>
+
+    </div>
+    <ion-label id="myLabel">&nbsp;</ion-label>
+</ion-content>
+<ion-footer no-lines style="">
+    <div class="chat-control">
+        <!--<div class="one " style=" display:inline-block;width:12% ">-->
+        <!--<img src="assets/img/icons8-Add-64.png " width="40px " height="40px " (click)="choose() " >-->
+        <!--</div>-->
+        <button ion-button=" " icon-only=" " clear (click)="choose()" class="attach-button">
+       <ion-icon name="ios-add-circle-outline" color="primary"></ion-icon>
+     </button>
+        <ion-item class="chat-textare">
+            <ion-textarea #sendInput (focusin)="focus($event)" type="text" [(ngModel)]="message" placeholder="Aa... " (ionChange)="disableSendBtn()"></ion-textarea>
+
+            <button ion-button=" " icon-only=" " (click)="send()" clear class="send-button" item-right=" " [disabled]="show"> 
+           
+         <ion-icon name="ai-send" color="grey"></ion-icon>
+       </button>
+            <!--<img src="assets/img/send-message.png " width="40px " height="40px "  class="right " (click)="send() ">-->
+        </ion-item>
+        <!--<div class="two " id="messageId " style="height:40px ;display:inline-block;width:88%;background-color:#ffffff; text-align:center;border:1px solid #029ff9; border-radius:20px; overflow:hidden ">-->
+
+        <!--<ion-textarea  type="text " style="padding-left:5px;padding-right:25px;color:#000000;background-color:transparent;text-align:center;-->
+        <!--font-size: 16px;" [(ngModel)]="message" placeholder="Aa..."></ion-textarea>-->
+
+        <!--<button ion-button="" icon-only="" (click)="send()" class="send-button">-->
+        <!--<ion-icon name="ai-send"></ion-icon>-->
+        <!--</button>-->
+        <!--&lt;!&ndash;<img src="assets/img/send-message.png" width="40px" height="40px"  class="right" (click)="send()">&ndash;&gt;-->
+        <!--</div>-->
+    </div>
+</ion-footer>
+
+
+<!--<div (click)="hideDialog()"  id="" style="visibility:hidden">-->
+<!--<div  style="position:absolute;left:0;top:0;width:100%;height: 95%;z-index:1000000;opacity:0 background-color:transparent">-->
+<!--</div>-->
+
+<!--<div class="dialog" style="block; width:80%" >-->
+<!--<div style="margin-right:5px;margin-left:10%;margin-bottom:0px">-->
+<!--<p     style="color:#828282; font-size:18px;margin-bottom:0px;" (click)="pickPhoto()"> <span class="spanClass"> <img  src="assets/img/icons8-Picture-64-small.png"  style="background-repeat: no-repeat;" />  </span>   {{ 'Photo library' | translate }} </p>-->
+
+<!--</div>-->
+<!--<div style="margin-right:5px;margin-left:10%;margin-bottom:0px">-->
+<!--<p     style="color:#828282; font-size:18px;margin-bottom:0px; margin-top: 0px;" (click)="takePhoto()"> <span class="spanClass"> <img  src="assets/img/icons8-Compact Camera-64-small.png"  style="background-repeat: no-repeat;" />  </span>  {{ 'Camera' | translate }}</p>-->
+
+<!--</div>-->
+<!--<div style="margin-right:5pxmargin-left:5px;;margin-bottom:0px;border-bottom:0.5px solid #000000;">-->
+<!--<p    style="color:#828282;margin-left:9%; font-size:18px;margin-bottom:0px;margin-top: 0px;" (click)="getAddress()"> <span class="spanClass"> <img  src="assets/img/icons8-User Location-64-small.png"  style="background-repeat: no-repeat;" />  </span>  {{ 'My location' | translate }}</p>-->
+
+<!--</div>-->
+
+<!--<br>-->
+
+<!--<p  text-center   style="color:#029FF9; font-size:18px;margin-bottom:0px;margin-top:0px" (click)="CancelDialog()"> {{ 'Cancel' | translate }} </p>-->
+
+<!--</div>-->
+
+<!--</div>-->
+
+
+<!-- Confirmation popup -->
+<div id="my_dialog" class="custom-dialog" style="visibility:hidden" text-center="" (click)="hideDialog()">
+    <div class="dialog">
+        <div class="dialog-content">
+            <ion-list no-lines="" no-padding>
+                <ion-item (click)="pickPhoto()">
+                    <ion-icon name="ai-gallery" item-start=""></ion-icon>
+                    <h2>{{ 'Photo library' | translate }}</h2>
+                </ion-item>
+                <ion-item (click)="takePhoto()">
+                    <ion-icon name="ai-camera" item-start=""></ion-icon>
+                    <h2>{{ 'Camera' | translate }}</h2>
+                </ion-item>
+                <ion-item ion-item (click)="getAddress()">
+                    <ion-icon name="ai-location-outline" item-start=""></ion-icon>
+                    <h2>{{ 'My location' | translate }}</h2>
+                </ion-item>
+            </ion-list>
+
+        </div>
+        <ion-grid class="dialog-buttons" no-padding>
+            <ion-row nowrap>
+                <ion-col no-padding style="border-left:none;">
+                    <button no-padding ion-button clear icon-left color="primary" (click)="CancelDialog()">{{ 'Cancel' | translate }}</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</div>
+<!-- end confirm popup -->

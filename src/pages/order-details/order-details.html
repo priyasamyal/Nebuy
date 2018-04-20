@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-navbar align-title="center">
+    <ion-title>
+     {{ 'Order Details' | translate }}
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-card class="delivery-card">
+      <ion-item text-center class="shop-title">
+        <ion-avatar *ngIf="order?.shop?.shop_photo" >
+          <img src="{{ order?.shop?.shop_photo}}"/>
+        </ion-avatar>
+        <h2 (click)="navigate(order?.shop?.lat, order?.shop?.lng, order?.shop?.shop_name)">{{ order?.shop?.shop_name}}</h2>
+      </ion-item>
+
+      <!--<ion-row style="padding: 10px" *ngIf="item?.status === 'Confirmation'; else notConfirmation">-->
+        <!--<ion-col>-->
+          <!--<p text-left>-->
+            <!--<span>{{ 'Delivery' | translate }}:</span>-->
+            <!--<span class="text-dark text-bold">{{(order?.reward * 1) + (order?.delivery_cost * 1) | currency:globals.currency:true  }}</span></p>-->
+        <!--</ion-col>-->
+        <!--<ion-col>-->
+          <!--<p text-right>-->
+            <!--{{ 'Cost' | translate }}:-->
+            <!--<span class="text-dark text-bold">{{ order.actual_cost  | currency:globals.currency:true}}</span>-->
+          <!--</p>-->
+        <!--</ion-col>-->
+      <!--</ion-row>-->
+
+      <!--<ng-template #notConfirmation>-->
+        <ion-row style="padding: 10px" *ngIf="item?.status === 'Confirmation'; else notConfirmation">
+          <ion-col>
+            <p text-left>
+              <span>{{ 'Delivery' | translate }}:</span>
+              <span class="text-dark text-bold">{{(order?.reward * 1) | currency:globals.currency:true  }}</span></p>
+          </ion-col>
+          <ion-col>
+            <p text-right>
+              {{ 'Budget' | translate }}:
+              <span class="text-dark text-bold">{{ order.cost  | currency:globals.currency:true}}</span>
+            </p>
+          </ion-col>
+        </ion-row>
+      <!--</ng-template>-->
+
+
+      <ion-row (click)="navigate(order?.delivery_address?.lat, order?.delivery_address?.lng, order?.delivery_address?.name)">
+        <ion-item>
+          <ion-icon name="navigate" item-left>
+          </ion-icon>
+          <p text-wrap ion-text="" color="blueapp">{{order?.delivery_address?.name}} {{order?.delivery_address?.address}}</p>
+        </ion-item>
+      </ion-row>
+
+      <div *ngIf="order?.delivery_time?.betweenTimeOne">
+        <ion-item>
+          <ion-icon name="ai-time" item-left color="light-grey"></ion-icon>
+          <p text-wrap class="text-dark"> {{ 'Delivery Between' | translate }} <span class="text-bold">{{startDay}} {{StartTime}}</span>  {{ 'and' | translate }} <span class="text-bold">{{endDay}} {{EndTime}}</span></p>
+        </ion-item>
+      </div>
+
+      <ion-row class="action-buttons more-than-two">
+        <ion-col *ngIf="type =='noType'">
+          <button outline round ion-button="" class="shadow-button" icon-start="" color="grey" (click)="report(order)">
+            <ion-icon name="ai-eye" color="primary"></ion-icon>
+            {{ 'Report' | translate }}
+          </button>
+        </ion-col>
+
+        <ion-col *ngIf="type =='noType'">
+          <button outline round ion-button="" class="shadow-button" icon-start="" color="grey" (click)="chatProfile(order.buyer_id)">
+            <ion-icon name="ai-profile" color="primary"></ion-icon>
+            {{ 'Buyer' | translate }}
+          </button>
+        </ion-col>
+
+        <ion-col *ngIf="type=='noType'">
+          <button outline round ion-button="" class="shadow-button" icon-start="" color="grey" (click)="deliver(order.uid, order.buyer_id, order)">
+            <ion-icon name="ai-delivering" color="primary"></ion-icon>
+            {{ 'Deliver' | translate }}
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ng-container *ngIf="order.products && order.products.length > 0">
+      <ion-item no-lines *ngFor="let product of order.products; let j = index">
+        <h2 class="text-dark">  <span class="list-number">{{j + 1}}.</span> {{product.name}} </h2>
+        <ion-row nowrap *ngIf="product.images && product.images.length">
+          <ion-avatar style="margin-right:3px" *ngFor="let image of product.images">
+            <img src="{{image}}" width="20px !important" height="20px !important" imageViewer />
+          </ion-avatar>
+        </ion-row>
+        <!--<ion-avatar *ngFor="let image of product.images">-->
+          <!--<img src="{{image}}" alt="" imageViewer />-->
+        <!--</ion-avatar>-->
+      </ion-item>
+    </ng-container>
+  </ion-list>
+</ion-content>

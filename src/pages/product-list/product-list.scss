@@ -1,0 +1,149 @@
+.md, .ios {
+  page-product-list {
+    .item.underlined-field.reward-field {
+      max-width: 70% !important;
+    }
+
+    .product-desc {
+      position: relative;
+      .label {
+        font-weight: 500;
+      }
+    }
+
+    .product-avatar {
+      img {
+        height: 8rem;
+        width: 8rem;
+      }
+    }
+
+    button[tooltip] {
+      height: 1.8em;
+    }
+
+    p.field-label {
+      @include center();
+    }
+
+    .product-actions {
+      margin-bottom: 6%;
+      padding: 0;
+      .row {padding:0;}
+      p {
+        font-size: 1.1rem;
+        color: darken(map_get($colors, light-grey), 20%);
+        margin: 0;
+        &:first-of-type {
+          margin-top: 5px;
+          color: map_get($colors, dark);
+          font-size: 1.4rem;
+        }
+      }
+      .button {
+        overflow: visible;
+      }
+      ion-icon[name="ai-camera"] {
+        font-size: 4rem;
+        position: relative;
+        top: .9rem;
+        &:before {
+          font-size: 4rem;
+        }
+      }
+    }
+
+    .my-cart {
+      font-size: 2rem;
+    }
+
+
+
+    //.scroll-content {
+    //    padding-bottom: 0 !important;
+    //}
+
+
+
+    // @media screen and (max-width:412px){
+    //     .product-list {
+    //         max-height: 110px;
+    //     }
+    // }
+
+    //  @media screen and (max-width:414px){
+    //     .product-list {
+    //         max-height: 110px;
+    //     }
+    // }
+
+    //     @media screen and (max-width:1024px){
+    //         .product-list {
+    //             max-height: 600px;
+    //         }
+    //     }
+
+    //     .popup-buttons .button{
+
+    //         color: #029FF9
+    //     }
+
+
+    // @media screen and (max-width:375px){
+    //         .product-list {
+    //             max-height: 100px;
+    //         }
+    //     }
+    //  @media screen and (min-height:568px){
+    //     .product-list {
+    //         max-height: 280px;
+    //     }
+    // }
+
+    // @media screen and (max-height:568px){
+    //     .product-list {
+    //         max-height: 180px;
+    //     }
+    // }
+
+    //  @media screen and (max-height:640px){
+    //     .product-list {
+    //         max-height: 300px;
+    //     }
+    // }
+
+    // @media screen and (max-height:732px){
+    //     .product-list {
+    //         max-height: 350px;
+    //     }
+    // }
+
+    //   @media screen and (max-height:750px){
+    //     .product-list {
+    //         max-height: 200px;
+    //     }
+    // }
+
+    //  @media screen and (max-height:960px){
+    //     .product-list {
+    //         max-height: 500px;
+    //     }
+    // }
+
+    // @media screen and (max-height:1280px){
+    //   .product-list {
+    //       max-height: calc(100% - 300px);
+    //   }
+    // }
+
+    //.order-pick-button .shopping-cart{
+    //    margin-left: 5%;
+    //    text-transform: initial;
+    //}
+    //.order-pick-button .shopping-cart-text{
+    //
+    //    text-transform: initial;
+    //}
+    //
+  }
+}

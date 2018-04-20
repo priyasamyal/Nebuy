@@ -1,0 +1,20 @@
+.md, .ios {
+  page-help {
+   .item {
+     .label {
+       white-space: normal;
+     }
+     .item-button {
+       height: unset !important;
+       font-size: 4rem;
+     }
+     [icon-only] ion-icon {
+       line-height: normal;
+       font-size: 4rem;
+       &::before {
+         font-size: 4rem;
+       }
+     }
+   }
+ }
+}
